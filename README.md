@@ -1,2 +1,5 @@
 # brc_arm
-Config and description for the robot arm
+Packages specific to the BRC robot arm
+
+### brc_arm_description
+### brc_arm_config
