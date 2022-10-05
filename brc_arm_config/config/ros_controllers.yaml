@@ -1,0 +1,44 @@
+brc_arm:
+  controller:
+    state:
+      type: joint_state_controller/JointStateController
+      publish_rate: 100
+    trajectory:
+      type: position_controllers/JointTrajectoryController
+      joints:
+        - carriageJ
+        - midarm1J
+        - midarm2J
+        - wrist1J
+        - wrist2J
+        - EEbaseJ
+      gains:
+        carriageJ: {p: 10.0, i: 0.0, d: 1.0}
+        midarm1J: {p: 10.0, i: 0.0, d: 1.0}
+        midarm2J: {p: 10.0, i: 0.0, d: 1.0}
+        wrist1J: {p: 10.0, i: 0.0, d: 1.0}
+        wrist2J: {p: 10.0, i: 0.0, d: 1.0}
+        EEbaseJ: {p: 10.0, i: 0.0, d: 1.0}
+      constraints:
+        goal_time: 10.0
+        carriageJ:
+          goal: 0.1
+        midarm1J:
+          goal: 0.1
+        midarm2J:
+          goal: 0.1
+        wrist1J:
+          goal: 0.1
+        wrist2J:
+          goal: 0.1
+        EEbaseJ:
+          goal: 0.1
+    position:
+      type: position_controllers/JointGroupPositionController
+      joints:
+        - carriageJ
+        - midarm1J
+        - midarm2J
+        - wrist1J
+        - wrist2J
+        - EEbaseJ
