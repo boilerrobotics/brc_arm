@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
-     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
   name="brc_arm_description">
-   <link name="world" />
-    <joint name="fixed" type="fixed">
-        <parent link="world" />
-        <child link="base_link" />
-    </joint>
   <link
     name="base_link">
     <inertial>
       <origin
-        xyz="-0.236503421129914 -0.114070650833493 0.0912749287811716"
+        xyz="-0.2365 -0.11407 0.091275"
         rpy="0 0 0" />
       <mass
-        value="127.989800714743" />
+        value="127.99" />
       <inertia
-        ixx="11.6464707209795"
-        ixy="0.746047479051374"
-        ixz="0.11702150876578"
-        iyy="17.6328580922711"
-        iyz="0.241487672198289"
-        izz="13.2544892494449" />
+        ixx="11.646"
+        ixy="0.74605"
+        ixz="0.11702"
+        iyy="17.633"
+        iyz="0.24149"
+        izz="13.254" />
     </inertial>
     <visual>
       <origin
@@ -36,7 +31,7 @@
       <material
         name="">
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
@@ -50,20 +45,20 @@
     </collision>
   </link>
   <link
-    name="carriage">
+    name="carriage_link">
     <inertial>
       <origin
-        xyz="2.60133127612493E-18 0.0250000000000005 0.0539046334093021"
+        xyz="2.5422E-18 0.025 0.053905"
         rpy="0 0 0" />
       <mass
-        value="0.447720870142158" />
+        value="0.44772" />
       <inertia
-        ixx="0.00109900282993972"
-        ixy="8.14695699840894E-21"
-        ixz="1.47343826082545E-20"
-        iyy="0.00119322484755841"
-        iyz="-3.76677817673167E-22"
-        izz="0.000280772380177922" />
+        ixx="0.001099"
+        ixy="8.147E-21"
+        ixz="1.4734E-20"
+        iyy="0.0011932"
+        iyz="-4.9973E-22"
+        izz="0.00028077" />
     </inertial>
     <visual>
       <origin
@@ -71,12 +66,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/carriage.STL" />
+          filename="package://brc_arm_description/meshes/carriage_link.STL" />
       </geometry>
       <material
         name="">
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
@@ -85,12 +80,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/carriage.STL" />
+          filename="package://brc_arm_description/meshes/carriage_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="carriageJ"
+    name="carriage_joint"
     type="prismatic">
     <origin
       xyz="0 0 0.065"
@@ -98,30 +93,30 @@
     <parent
       link="base_link" />
     <child
-      link="carriage" />
+      link="carriage_link" />
     <axis
       xyz="0 1 0" />
     <limit
       lower="0"
       upper="0.885"
       effort="0"
-      velocity="10" />
+      velocity="0" />
   </joint>
   <link
-    name="midarm1">
+    name="midarm1_link">
     <inertial>
       <origin
-        xyz="-0.203557861047764 0.0240670135873739 -0.0233639836713499"
+        xyz="-0.20356 0.024067 -0.023364"
         rpy="0 0 0" />
       <mass
-        value="0.836203235137726" />
+        value="0.8362" />
       <inertia
-        ixx="0.00151945911351229"
-        ixy="-0.000102923359495151"
-        ixz="0.000240522861339413"
-        iyy="0.00702698610521792"
-        iyz="-9.31764631877636E-05"
-        izz="0.0071837422694106" />
+        ixx="0.0015195"
+        ixy="-0.00010292"
+        ixz="0.00024052"
+        iyy="0.007027"
+        iyz="-9.3176E-05"
+        izz="0.0071837" />
     </inertial>
     <visual>
       <origin
@@ -129,12 +124,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/midarm1.STL" />
+          filename="package://brc_arm_description/meshes/midarm1_link.STL" />
       </geometry>
       <material
         name="">
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
@@ -143,30 +138,30 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/midarm1.STL" />
+          filename="package://brc_arm_description/meshes/midarm1_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="midarm1J"
+    name="midarm1_joint"
     type="revolute">
     <origin
       xyz="0 0 0.1"
-      rpy="0 0.2932 0" />
+      rpy="0 0.5236 0" />
     <parent
-      link="carriage" />
+      link="carriage_link" />
     <child
-      link="midarm1" />
+      link="midarm1_link" />
     <axis
       xyz="0 1 0" />
     <limit
       lower="0"
       upper="2.7423"
       effort="0"
-      velocity="10" />
+      velocity="0" />
   </joint>
   <link
-    name="midarm2">
+    name="midarm2_link">
     <inertial>
       <origin
         xyz="0.0437798591057959 0.0206817493001328 2.4980018054066E-16"
@@ -176,9 +171,9 @@
       <inertia
         ixx="2.3728145359128E-05"
         ixy="-1.49350689133807E-06"
-        ixz="1.37642853928824E-19"
+        ixz="1.33407689192552E-19"
         iyy="7.7948360762991E-05"
-        iyz="1.18319914819585E-20"
+        iyz="1.18849310411619E-20"
         izz="9.1312862306253E-05" />
     </inertial>
     <visual>
@@ -187,7 +182,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/midarm2.STL" />
+          filename="package://brc_arm_description/meshes/midarm2_link.STL" />
       </geometry>
       <material
         name="">
@@ -201,40 +196,40 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/midarm2.STL" />
+          filename="package://brc_arm_description/meshes/midarm2_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="midarm2J"
+    name="midarm2_joint"
     type="revolute">
     <origin
       xyz="-0.35 0 0"
-      rpy="0 -0.9826 0" />
+      rpy="0 -0.43633 0" />
     <parent
-      link="midarm1" />
+      link="midarm1_link" />
     <child
-      link="midarm2" />
+      link="midarm2_link" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 1 0" />
     <limit
       lower="0"
-      upper="4.1887"
+      upper="4.1888"
       effort="0"
-      velocity="10" />
+      velocity="0" />
   </joint>
   <link
-    name="wrist1">
+    name="wrist1_link">
     <inertial>
       <origin
-        xyz="0.0903131624724206 -0.00462740982819056 0.0208801756228061"
+        xyz="0.0903131624724207 -0.00462740982819057 0.0208801756228061"
         rpy="0 0 0" />
       <mass
-        value="0.419666572951628" />
+        value="0.419666572951629" />
       <inertia
         ixx="0.000346854880152641"
-        ixy="2.70709984964616E-06"
-        ixz="-5.02615984609936E-05"
+        ixy="2.70709984964626E-06"
+        ixz="-5.02615984609935E-05"
         iyy="0.00143713508844135"
         iyz="3.62665449634077E-05"
         izz="0.00143304792270374" />
@@ -245,7 +240,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/wrist1.STL" />
+          filename="package://brc_arm_description/meshes/wrist1_link.STL" />
       </geometry>
       <material
         name="">
@@ -259,42 +254,42 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/wrist1.STL" />
+          filename="package://brc_arm_description/meshes/wrist1_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="wrist1J"
+    name="wrist1_joint"
     type="revolute">
     <origin
       xyz="0.08 0.025 0"
       rpy="0 0 0" />
     <parent
-      link="midarm2" />
+      link="midarm2_link" />
     <child
-      link="wrist1" />
+      link="wrist1_link" />
     <axis
-      xyz="0 0 -1" />
+      xyz="0 0 1" />
     <limit
       lower="0"
       upper="1.57"
       effort="0"
-      velocity="10" />
+      velocity="0" />
   </joint>
   <link
-    name="wrist2">
+    name="wrist2_link">
     <inertial>
       <origin
-        xyz="0.043767510273945 0.018260701276372 0.00653583627389159"
+        xyz="0.043767510273945 0.018260701276372 0.0065358362738916"
         rpy="0 0 0" />
       <mass
         value="0.129512939632169" />
       <inertia
         ixx="0.000129578871276748"
-        ixy="2.7857330733907E-06"
-        ixz="-2.66314903931952E-06"
-        iyy="8.51895227169167E-05"
-        iyz="-9.1141143603532E-07"
+        ixy="2.78573307339072E-06"
+        ixz="-2.66314903931951E-06"
+        iyy="8.51895227169166E-05"
+        iyz="-9.11411436035313E-07"
         izz="0.000185624075448265" />
     </inertial>
     <visual>
@@ -303,7 +298,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/wrist2.STL" />
+          filename="package://brc_arm_description/meshes/wrist2_link.STL" />
       </geometry>
       <material
         name="">
@@ -317,42 +312,42 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/wrist2.STL" />
+          filename="package://brc_arm_description/meshes/wrist2_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="wrist2J"
+    name="wrist2_joint"
     type="revolute">
     <origin
       xyz="0.225 0 0"
       rpy="-3.1416 -1.2217 3.1416" />
     <parent
-      link="wrist1" />
+      link="wrist1_link" />
     <child
-      link="wrist2" />
+      link="wrist2_link" />
     <axis
       xyz="0 1 0" />
     <limit
       lower="0"
       upper="4.165"
       effort="0"
-      velocity="10" />
+      velocity="0" />
   </joint>
   <link
-    name="EEbase">
+    name="EEbase_link">
     <inertial>
       <origin
-        xyz="1.66533453693773E-16 -2.51187959321442E-15 -0.0327794628998194"
+        xyz="2.4980018054066E-16 -2.51187959321442E-15 -0.0327794628998193"
         rpy="0 0 0" />
       <mass
         value="0.0926044760959502" />
       <inertia
         ixx="4.81318826783348E-05"
-        ixy="-1.47483927353917E-20"
-        ixz="3.04931861011548E-20"
+        ixy="-1.57510711271281E-20"
+        ixz="2.37169225231204E-20"
         iyy="7.32482359165231E-05"
-        iyz="-9.66395961887129E-20"
+        iyz="-9.81194031396023E-20"
         izz="3.29932559448168E-05" />
     </inertial>
     <visual>
@@ -361,7 +356,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/EEbase.STL" />
+          filename="package://brc_arm_description/meshes/EEbase_link.STL" />
       </geometry>
       <material
         name="">
@@ -375,42 +370,37 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/EEbase.STL" />
+          filename="package://brc_arm_description/meshes/EEbase_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="EEbaseJ"
+    name="EEbase_joint"
     type="continuous">
     <origin
-      xyz="0.095 0 0"
-      rpy="0 -1.5708 0" />
+      xyz="0.10009 0 0"
+      rpy="3.1416 -1.5708 0" />
     <parent
-      link="wrist2" />
+      link="wrist2_link" />
     <child
-      link="EEbase" />
+      link="EEbase_link" />
     <axis
       xyz="0 0 1" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="10" />
   </joint>
   <link
-    name="RLink1">
+    name="Rlink_link">
     <inertial>
       <origin
-        xyz="0.04 -0.00249999999999992 1.11022302462516E-16"
+        xyz="0.0399999999999999 -0.00249999999999992 1.66533453693773E-16"
         rpy="0 0 0" />
       <mass
         value="0.00668722339297277" />
       <inertia
-        ixx="1.38550163626324E-07"
-        ixy="-1.87416967228555E-21"
-        ixz="-8.71848365630891E-21"
-        iyy="4.66129432520502E-06"
-        iyz="-1.12365087540218E-22"
+        ixx="1.38550163626323E-07"
+        ixy="-1.87727288905576E-21"
+        ixz="-8.27511484798049E-21"
+        iyy="4.66129432520503E-06"
+        iyz="-1.14346024494546E-22"
         izz="4.55060759238276E-06" />
     </inertial>
     <visual>
@@ -419,7 +409,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/RLink1.STL" />
+          filename="package://brc_arm_description/meshes/Rlink_link.STL" />
       </geometry>
       <material
         name="">
@@ -433,42 +423,42 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/RLink1.STL" />
+          filename="package://brc_arm_description/meshes/Rlink_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="RLink1J"
+    name="Rlink_joint"
     type="revolute">
     <origin
       xyz="0.024 -0.011 -0.014095"
       rpy="0 0 0" />
     <parent
-      link="EEbase" />
+      link="EEbase_link" />
     <child
-      link="RLink1" />
+      link="Rlink_link" />
     <axis
       xyz="0 1 0" />
     <limit
       lower="0"
-      upper="1.22"
+      upper="1.67"
       effort="0"
-      velocity="10" />
+      velocity="0" />
   </joint>
   <link
-    name="RFinger">
+    name="Rfinger_link">
     <inertial>
       <origin
-        xyz="0.0174831476155697 0.0707338411471632 -0.011"
+        xyz="0.0174831476155695 0.0707338411471633 -0.011"
         rpy="0 0 0" />
       <mass
         value="0.052748844949343" />
       <inertia
-        ixx="9.60936833531592E-05"
+        ixx="9.60936833531591E-05"
         ixy="-3.36352218446777E-05"
-        ixz="3.50412858318045E-20"
+        ixz="3.61872312377867E-20"
         iyy="1.68927505422671E-05"
-        iyz="8.24116412406916E-20"
+        iyz="8.49388270800886E-20"
         izz="0.000108731360402846" />
     </inertial>
     <visual>
@@ -477,7 +467,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/RFinger.STL" />
+          filename="package://brc_arm_description/meshes/Rfinger_link.STL" />
       </geometry>
       <material
         name="">
@@ -491,46 +481,41 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/RFinger.STL" />
+          filename="package://brc_arm_description/meshes/Rfinger_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="RFingerJ"
-    type="revolute">
+    name="Rfinger_joint"
+    type="continuous">
     <origin
       xyz="0.08 0 0"
       rpy="-1.5708 0 -3.1416" />
     <parent
-      link="RLink1" />
+      link="Rlink_link" />
     <child
-      link="RFinger" />
+      link="Rfinger_link" />
     <axis
       xyz="0 0 1" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="10" />
     <mimic
-      joint="RLink1J"
+      joint="Rlink_joint"
       multiplier="1"
       offset="0" />
   </joint>
   <link
-    name="LLink1">
+    name="Llink_link">
     <inertial>
       <origin
-        xyz="-0.0400000000000001 -0.00249999999999997 -3.88578058618805E-16"
+        xyz="-0.0400000000000001 -0.00249999999999997 -2.22044604925031E-16"
         rpy="0 0 0" />
       <mass
         value="0.00668722339297277" />
       <inertia
         ixx="1.38550163626324E-07"
         ixy="-1.91820017504688E-21"
-        ixz="-8.29496718268176E-21"
+        ixz="-8.07990022341797E-21"
         iyy="4.66129432520503E-06"
-        iyz="-2.15898008823249E-22"
+        iyz="-2.15898008823243E-22"
         izz="4.55060759238276E-06" />
     </inertial>
     <visual>
@@ -539,7 +524,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/LLink1.STL" />
+          filename="package://brc_arm_description/meshes/Llink_link.STL" />
       </geometry>
       <material
         name="">
@@ -553,47 +538,42 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/LLink1.STL" />
+          filename="package://brc_arm_description/meshes/Llink_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="LLink1J"
-    type="revolute">
+    name="Llink_joint"
+    type="continuous">
     <origin
       xyz="-0.024 -0.011 -0.014095"
       rpy="0 0 0" />
     <parent
-      link="EEbase" />
+      link="EEbase_link" />
     <child
-      link="LLink1" />
+      link="Llink_link" />
     <axis
       xyz="0 1 0" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="10" />
     <mimic
-      joint="RLink1J"
-      multiplier="-1"
+      joint="Rlink_joint"
+      multiplier="1"
       offset="0" />
   </joint>
   <link
-    name="LFinger">
+    name="Lfinger_link">
     <inertial>
       <origin
-        xyz="0.0174831476155701 0.0707338411471631 0.011"
+        xyz="0.017483 0.070734 0.011"
         rpy="0 0 0" />
       <mass
-        value="0.052748844949343" />
+        value="0.052749" />
       <inertia
-        ixx="9.60936833531593E-05"
-        ixy="-3.36352218446776E-05"
-        ixz="1.18794225068374E-20"
-        iyy="1.6892750542267E-05"
-        iyz="2.77347204785423E-20"
-        izz="0.000108731360402846" />
+        ixx="9.6094E-05"
+        ixy="-3.3635E-05"
+        ixz="1.0851E-20"
+        iyy="1.6893E-05"
+        iyz="2.7634E-20"
+        izz="0.00010873" />
     </inertial>
     <visual>
       <origin
@@ -601,12 +581,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/LFinger.STL" />
+          filename="package://brc_arm_description/meshes/Lfinger_link.STL" />
       </geometry>
       <material
         name="">
         <color
-          rgba="1 0.717647058823529 0.819607843137255 1" />
+          rgba="1 0.71765 0.81961 1" />
       </material>
     </visual>
     <collision>
@@ -615,29 +595,24 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://brc_arm_description/meshes/LFinger.STL" />
+          filename="package://brc_arm_description/meshes/Lfinger_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="LFingerJ"
-    type="revolute">
+    name="Lfinger_joint"
+    type="continuous">
     <origin
       xyz="-0.08 0 0"
       rpy="-1.5708 0 0" />
     <parent
-      link="LLink1" />
+      link="Llink_link" />
     <child
-      link="LFinger" />
+      link="Lfinger_link" />
     <axis
       xyz="0 0 1" />
-    <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="10" />
     <mimic
-      joint="RLink1J"
+      joint="Llink_joint"
       multiplier="1"
       offset="0" />
   </joint>

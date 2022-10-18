@@ -1,1 +1,1 @@
-controller_joint_names: ['', 'carriageJ', 'midarm1J', 'midarm2J', 'wrist1J', 'wrist2J', 'EEbaseJ', 'RLink1J', 'RFingerJ', 'LLink1J', 'LFingerJ', ]
+controller_joint_names: ['', 'carriage_joint', 'midarm1_joint', 'midarm2_joint', 'wrist1_joint', 'wrist2_joint', 'EEbase_joint', 'Rlink_joint', 'Rfinger_joint', 'Llink_joint', 'Lfinger_joint', ]
