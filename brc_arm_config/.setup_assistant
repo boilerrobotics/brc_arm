@@ -7,10 +7,11 @@ moveit_setup_assistant_config:
   package_settings:
     author_name: Andy Ding
     author_email: ding258@purdue.edu
-    generated_timestamp: 1666137108
+    generated_timestamp: 1666458488
   control_xacro:
     command:
       - position
+      - velocity
     state:
       - position
       - velocity
@@ -20,6 +21,7 @@ moveit_setup_assistant_config:
   control_xacro:
     command:
       - position
+      - velocity
     state:
       - position
       - velocity

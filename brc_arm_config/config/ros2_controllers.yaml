@@ -24,6 +24,7 @@ brc_arm_controller:
       - wrist2_joint
     command_interfaces:
       - position
+      - velocity
     state_interfaces:
       - position
       - velocity
@@ -34,6 +35,7 @@ brc_arm_ee_controller:
       - Rlink_joint
     command_interfaces:
       - position
+      - velocity
     state_interfaces:
       - position
       - velocity

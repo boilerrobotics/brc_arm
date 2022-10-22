@@ -36,7 +36,15 @@
         <joint name="midarm1_joint" value="2.7423"/>
         <joint name="midarm2_joint" value="3.587"/>
         <joint name="wrist1_joint" value="0"/>
-        <joint name="wrist2_joint" value="0"/>
+        <joint name="wrist2_joint" value="1.8409"/>
+    </group_state>
+    <group_state name="open" group="brc_arm_ee">
+        <joint name="EEbase_joint" value="0"/>
+        <joint name="Rlink_joint" value="0"/>
+    </group_state>
+    <group_state name="closed" group="brc_arm_ee">
+        <joint name="EEbase_joint" value="0"/>
+        <joint name="Rlink_joint" value="1.3"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="brc_arm_ee" parent_link="wrist2_link" group="brc_arm_ee" parent_group="brc_arm"/>
@@ -48,25 +56,35 @@
     <disable_collisions link1="EEbase_link" link2="Rfinger_link" reason="Never"/>
     <disable_collisions link1="EEbase_link" link2="Rlink_link" reason="Adjacent"/>
     <disable_collisions link1="EEbase_link" link2="midarm2_link" reason="Never"/>
+    <disable_collisions link1="EEbase_link" link2="wrist1_link" reason="Never"/>
     <disable_collisions link1="EEbase_link" link2="wrist2_link" reason="Adjacent"/>
     <disable_collisions link1="Lfinger_link" link2="Llink_link" reason="Adjacent"/>
     <disable_collisions link1="Lfinger_link" link2="Rfinger_link" reason="Never"/>
     <disable_collisions link1="Lfinger_link" link2="Rlink_link" reason="Never"/>
+    <disable_collisions link1="Lfinger_link" link2="midarm2_link" reason="Never"/>
+    <disable_collisions link1="Lfinger_link" link2="wrist1_link" reason="Never"/>
+    <disable_collisions link1="Lfinger_link" link2="wrist2_link" reason="Never"/>
     <disable_collisions link1="Llink_link" link2="Rfinger_link" reason="Never"/>
+    <disable_collisions link1="Llink_link" link2="Rlink_link" reason="Never"/>
     <disable_collisions link1="Llink_link" link2="midarm2_link" reason="Never"/>
+    <disable_collisions link1="Llink_link" link2="wrist1_link" reason="Never"/>
+    <disable_collisions link1="Llink_link" link2="wrist2_link" reason="Never"/>
     <disable_collisions link1="Rfinger_link" link2="Rlink_link" reason="Adjacent"/>
-    <disable_collisions link1="Rfinger_link" link2="carriage_link" reason="Default"/>
-    <disable_collisions link1="Rfinger_link" link2="wrist1_link" reason="Default"/>
+    <disable_collisions link1="Rfinger_link" link2="midarm2_link" reason="Never"/>
+    <disable_collisions link1="Rfinger_link" link2="wrist1_link" reason="Never"/>
+    <disable_collisions link1="Rfinger_link" link2="wrist2_link" reason="Never"/>
     <disable_collisions link1="Rlink_link" link2="midarm2_link" reason="Never"/>
-    <disable_collisions link1="Rlink_link" link2="wrist1_link" reason="Default"/>
-    <disable_collisions link1="Rlink_link" link2="wrist2_link" reason="Default"/>
+    <disable_collisions link1="Rlink_link" link2="wrist1_link" reason="Never"/>
+    <disable_collisions link1="Rlink_link" link2="wrist2_link" reason="Never"/>
     <disable_collisions link1="base_link" link2="carriage_link" reason="Adjacent"/>
     <disable_collisions link1="base_link" link2="midarm1_link" reason="Default"/>
     <disable_collisions link1="base_link" link2="midarm2_link" reason="Never"/>
     <disable_collisions link1="carriage_link" link2="midarm1_link" reason="Adjacent"/>
     <disable_collisions link1="carriage_link" link2="midarm2_link" reason="Never"/>
+    <disable_collisions link1="carriage_link" link2="wrist1_link" reason="Never"/>
     <disable_collisions link1="midarm1_link" link2="midarm2_link" reason="Adjacent"/>
     <disable_collisions link1="midarm1_link" link2="wrist1_link" reason="Default"/>
+    <disable_collisions link1="midarm1_link" link2="wrist2_link" reason="Never"/>
     <disable_collisions link1="midarm2_link" link2="wrist1_link" reason="Adjacent"/>
     <disable_collisions link1="midarm2_link" link2="wrist2_link" reason="Never"/>
     <disable_collisions link1="wrist1_link" link2="wrist2_link" reason="Adjacent"/>

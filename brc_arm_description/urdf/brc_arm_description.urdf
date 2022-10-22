@@ -101,6 +101,12 @@
       upper="0.885"
       effort="0"
       velocity="0" />
+    <command_interface name="position" />
+    <command_interface name="velocity" />
+    <state_interface name="position">
+      <!-- <param name="initial_value">${initial_positions['carriage_joint']}</param> -->
+    </state_interface>
+    <state_interface name="velocity" />
   </joint>
   <link
     name="midarm1_link">
@@ -159,6 +165,12 @@
       upper="2.7423"
       effort="0"
       velocity="0" />
+    <command_interface name="position" />
+    <command_interface name="velocity" />
+    <state_interface name="position">
+      <!-- <param name="initial_value">${initial_positions['midarm1_joint']}</param> -->
+    </state_interface>
+    <state_interface name="velocity" />
   </joint>
   <link
     name="midarm2_link">
@@ -217,6 +229,12 @@
       upper="0"
       effort="0"
       velocity="0" />
+    <command_interface name="position" />
+    <command_interface name="velocity" />
+    <state_interface name="position">
+      <!-- <param name="initial_value">${initial_positions['midarm2_joint']}</param> -->
+    </state_interface>
+    <state_interface name="velocity" />
   </joint>
   <link
     name="wrist1_link">
@@ -275,6 +293,12 @@
       upper="0"
       effort="0"
       velocity="0" />
+    <command_interface name="position" />
+    <command_interface name="velocity" />
+    <state_interface name="position">
+      <!-- <param name="initial_value">${initial_positions['wrist1_joint']}</param> -->
+    </state_interface>
+    <state_interface name="velocity" />
   </joint>
   <link
     name="wrist2_link">
@@ -333,6 +357,12 @@
       upper="4.165"
       effort="0"
       velocity="0" />
+    <command_interface name="position" />
+    <command_interface name="velocity" />
+    <state_interface name="position">
+      <!-- <param name="initial_value">${initial_positions['wrist2_joint']}</param> -->
+    </state_interface>
+    <state_interface name="velocity" />
   </joint>
   <link
     name="EEbase_link">
@@ -386,6 +416,12 @@
       link="EEbase_link" />
     <axis
       xyz="0 0 1" />
+    <command_interface name="position" />
+    <command_interface name="velocity" />
+    <state_interface name="position">
+      <!-- <param name="initial_value">${initial_positions['EEbase_joint']}</param> -->
+    </state_interface>
+    <state_interface name="velocity" />
   </joint>
   <link
     name="Rlink_link">
@@ -444,6 +480,12 @@
       upper="1.30"
       effort="0"
       velocity="0" />
+    <command_interface name="position" />
+    <command_interface name="velocity" />
+    <state_interface name="position">
+      <!-- <param name="initial_value">${initial_positions['Rlink_joint']}</param> -->
+    </state_interface>
+    <state_interface name="velocity" />
   </joint>
   <link
     name="Rfinger_link">
