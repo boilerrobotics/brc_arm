@@ -1,0 +1,10 @@
+# Default initial positions for brc_arm_description's ros2_control fake system
+
+initial_positions:
+  EEbase_joint: 0
+  Rlink_joint: 0
+  carriage_joint: 0
+  midarm1_joint: 0
+  midarm2_joint: 0
+  wrist1_joint: 0
+  wrist2_joint: 0

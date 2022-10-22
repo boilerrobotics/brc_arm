@@ -1,11 +1,27 @@
 moveit_setup_assistant_config:
-  URDF:
+  urdf:
     package: brc_arm_description
     relative_path: urdf/brc_arm_description.urdf
-    xacro_args: ""
-  SRDF:
+  srdf:
     relative_path: config/brc_arm_description.srdf
-  CONFIG:
-    author_name: andy
+  package_settings:
+    author_name: Andy Ding
     author_email: ding258@purdue.edu
-    generated_timestamp: 1620086570
+    generated_timestamp: 1666458488
+  control_xacro:
+    command:
+      - position
+      - velocity
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+      - velocity
+    state:
+      - position
+      - velocity

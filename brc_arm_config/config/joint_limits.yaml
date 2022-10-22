@@ -8,53 +8,53 @@ default_acceleration_scaling_factor: 0.1
 # Specific joint properties can be changed with the keys [max_position, min_position, max_velocity, max_acceleration]
 # Joint limits can be turned off with [has_velocity_limits, has_acceleration_limits]
 joint_limits:
-  EEbaseJ:
+  EEbase_joint:
     has_velocity_limits: false
     max_velocity: 0
-    has_acceleration_limits: true
-    max_acceleration: 10
-  LFingerJ:
+    has_acceleration_limits: false
+    max_acceleration: 0
+  Lfinger_joint:
     has_velocity_limits: false
     max_velocity: 0
-    has_acceleration_limits: true
-    max_acceleration: 10
-  LLink1J:
+    has_acceleration_limits: false
+    max_acceleration: 0
+  Llink_joint:
     has_velocity_limits: false
     max_velocity: 0
-    has_acceleration_limits: true
-    max_acceleration: 10
-  RFingerJ:
+    has_acceleration_limits: false
+    max_acceleration: 0
+  Rfinger_joint:
     has_velocity_limits: false
     max_velocity: 0
-    has_acceleration_limits: true
-    max_acceleration: 10
-  RLink1J:
+    has_acceleration_limits: false
+    max_acceleration: 0
+  Rlink_joint:
     has_velocity_limits: false
     max_velocity: 0
-    has_acceleration_limits: true
-    max_acceleration: 10
-  carriageJ:
+    has_acceleration_limits: false
+    max_acceleration: 0
+  carriage_joint:
     has_velocity_limits: false
     max_velocity: 0
-    has_acceleration_limits: true
-    max_acceleration: 10
-  midarm1J:
+    has_acceleration_limits: false
+    max_acceleration: 0
+  midarm1_joint:
     has_velocity_limits: false
     max_velocity: 0
-    has_acceleration_limits: true
-    max_acceleration: 10
-  midarm2J:
+    has_acceleration_limits: false
+    max_acceleration: 0
+  midarm2_joint:
     has_velocity_limits: false
     max_velocity: 0
-    has_acceleration_limits: true
-    max_acceleration: 10
-  wrist1J:
+    has_acceleration_limits: false
+    max_acceleration: 0
+  wrist1_joint:
     has_velocity_limits: false
     max_velocity: 0
-    has_acceleration_limits: true
-    max_acceleration: 10
-  wrist2J:
+    has_acceleration_limits: false
+    max_acceleration: 0
+  wrist2_joint:
     has_velocity_limits: false
     max_velocity: 0
-    has_acceleration_limits: true
-    max_acceleration: 10
+    has_acceleration_limits: false
+    max_acceleration: 0
