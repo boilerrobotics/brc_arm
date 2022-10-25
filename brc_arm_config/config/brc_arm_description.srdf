@@ -33,10 +33,10 @@
     </group_state>
     <group_state name="front" group="brc_arm">
         <joint name="carriage_joint" value="0.1614"/>
-        <joint name="midarm1_joint" value="2.7423"/>
-        <joint name="midarm2_joint" value="3.587"/>
+        <joint name="midarm1_joint" value="2.65"/>
+        <joint name="midarm2_joint" value="-2.65"/>
         <joint name="wrist1_joint" value="0"/>
-        <joint name="wrist2_joint" value="1.8409"/>
+        <joint name="wrist2_joint" value="1.8"/>
     </group_state>
     <group_state name="open" group="brc_arm_ee">
         <joint name="EEbase_joint" value="0"/>
@@ -45,6 +45,13 @@
     <group_state name="closed" group="brc_arm_ee">
         <joint name="EEbase_joint" value="0"/>
         <joint name="Rlink_joint" value="1.3"/>
+    </group_state>
+    <group_state name="pickup" group="brc_arm">
+        <joint name="carriage_joint" value="0"/>
+        <joint name="midarm1_joint" value="2.65"/>
+        <joint name="midarm2_joint" value="-2.65"/>
+        <joint name="wrist1_joint" value="-1.57"/>
+        <joint name="wrist2_joint" value="1.8"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="brc_arm_ee" parent_link="wrist2_link" group="brc_arm_ee" parent_group="brc_arm"/>
