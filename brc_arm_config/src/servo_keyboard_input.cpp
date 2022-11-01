@@ -267,7 +267,7 @@ int KeyboardServo::keyLoop()
             break;
         case KEYCODE_5:
             RCLCPP_DEBUG(nh_->get_logger(), "5");
-            joint_msg->joint_names.push_back("wrist1_joint");
+            joint_msg->joint_names.push_back("wrist2_joint");
             joint_msg->velocities.push_back(joint_vel_cmd_);
             publish_joint = true;
             break;
