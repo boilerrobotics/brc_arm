@@ -290,7 +290,7 @@
       xyz="0 0 1" />
     <limit
       lower="-1.57"
-      upper="0"
+      upper="0.523"
       effort="0"
       velocity="0" />
     <command_interface name="position" />

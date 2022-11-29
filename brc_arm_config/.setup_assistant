@@ -7,21 +7,4 @@ moveit_setup_assistant_config:
   package_settings:
     author_name: Andy Ding
     author_email: ding258@purdue.edu
-    generated_timestamp: 1666739252
-  control_xacro:
-    command:
-      - position
-      - velocity
-    state:
-      - position
-      - velocity
-  modified_urdf:
-    xacros:
-      - control_xacro
-  control_xacro:
-    command:
-      - position
-      - velocity
-    state:
-      - position
-      - velocity
+    generated_timestamp: 1669765555
