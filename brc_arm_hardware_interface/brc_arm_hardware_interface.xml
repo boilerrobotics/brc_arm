@@ -1,0 +1,9 @@
+<library path="brc_arm_hardware_interface">
+
+    <class name="brc_arm_hardware_interface/BRCArmHWInterface" type="brc_arm_hardware_interface::BRCArmHWInterface" base_class_type="hardware_interface::SystemInterface">
+        <description>
+          BRC arm's hardware interface.
+        </description>
+    </class>
+    
+</library>
