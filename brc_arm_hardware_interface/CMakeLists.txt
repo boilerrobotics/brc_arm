@@ -43,10 +43,10 @@ install(
   DESTINATION include
 )
 
-# install(
-#   TARGETS
-#   ${PROJECT_NAME}
-# )
+install(
+  TARGETS
+  ${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -66,8 +66,6 @@ ament_export_include_directories(
   include
 )
 ament_export_libraries(
-  fake_components
-  mock_components
   ${PROJECT_NAME}
 )
 ament_export_dependencies(${THIS_PACKAGE_INCLUDE_DEPENDS})

@@ -21,6 +21,9 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
     return hardware_interface::CallbackReturn::ERROR;
   }
 
+  RCLCPP_INFO(
+    rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Init ...please wait...");
+
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
   hw_start_sec_ = stod(info_.hardware_parameters["example_param_hw_start_duration_sec"]);
   hw_stop_sec_ = stod(info_.hardware_parameters["example_param_hw_stop_duration_sec"]);
@@ -171,6 +174,7 @@ std::vector<hardware_interface::CommandInterface> BRCArmHWInterface::export_comm
   {
     command_interfaces.emplace_back(hardware_interface::CommandInterface(
       info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_commands_[i]));
+    RCLCPP_INFO(rclcpp::get_logger("cmd interfaces"), "interface: %d added", i);
   }
 
   return command_interfaces;
@@ -214,4 +218,4 @@ return_type BRCArmHWInterface::write(const rclcpp::Time & time, const rclcpp::Du
 
 }
 
-PLUGINLIB_EXPORT_CLASS(brc_arm_hardware_interface::BRCArmHWInterface , hardware_interface::SystemInterface)
+PLUGINLIB_EXPORT_CLASS(brc_arm_hardware_interface::BRCArmHWInterface, hardware_interface::SystemInterface)
