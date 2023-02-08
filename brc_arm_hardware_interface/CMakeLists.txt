@@ -35,7 +35,7 @@ ament_target_dependencies(
 )
 
 pluginlib_export_plugin_description_file(
-  ${PROJECT_NAME} brc_arm_hardware_interface.xml
+  hardware_interface brc_arm_hardware_interface.xml
 )
 
 install(

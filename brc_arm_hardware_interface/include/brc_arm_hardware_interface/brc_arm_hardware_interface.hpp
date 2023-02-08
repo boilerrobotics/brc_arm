@@ -15,7 +15,7 @@ using hardware_interface::return_type;
 
 class BRCArmHWInterface : public hardware_interface::SystemInterface {
 public:
-    RCLCPP_SHARED_PTR_DEFINITIONS(BRCArmHWInterface);
+    RCLCPP_SHARED_PTR_DEFINITIONS(BRCArmHWInterface)
 
     // LifecycleNodeInterface
     CallbackReturn on_configure(const rclcpp_lifecycle::State& previous_state);
@@ -48,8 +48,11 @@ private:
     double hw_slowdown_;
 
     // Store the command for the simulated robot
-    std::vector<double> hw_commands_;
-    std::vector<double> hw_states_;
+    std::vector<std::vector<double>> hw_commands_;
+    std::vector<std::vector<double>> hw_states_;
+
+    const size_t POSITION_INTERFACE_INDEX = 0;
+    const size_t VELOCITY_INTERFACE_INDEX = 1;
 };
 
 }

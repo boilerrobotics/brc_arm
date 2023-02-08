@@ -21,25 +21,34 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
     return hardware_interface::CallbackReturn::ERROR;
   }
 
-  RCLCPP_INFO(
-    rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Init ...please wait...");
+  // RCLCPP_INFO(
+  //   rclcpp::get_logger("BRCArmHWInterface"), "Init ...please wait...");
 
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
-  hw_start_sec_ = stod(info_.hardware_parameters["example_param_hw_start_duration_sec"]);
-  hw_stop_sec_ = stod(info_.hardware_parameters["example_param_hw_stop_duration_sec"]);
-  hw_slowdown_ = stod(info_.hardware_parameters["example_param_hw_slowdown"]);
+  // hw_start_sec_ = std::stod(info_.hardware_parameters["example_param_hw_start_duration_sec"]);
+  // hw_stop_sec_ = std::stod(info_.hardware_parameters["example_param_hw_stop_duration_sec"]);
+  // hw_slowdown_ = std::stod(info_.hardware_parameters["example_param_hw_slowdown"]);
   // END: This part here is for exemplary purposes - Please do not copy to your production code
-  hw_states_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
-  hw_commands_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+  hw_start_sec_ = 0;
+  hw_stop_sec_ = 3.0;
+  hw_slowdown_ = 100;
 
+  // Position, velocity interfaces
+  hw_states_.resize(2);
+  hw_commands_.resize(2);
+  for (auto i = 0u; i < 2; i++) {
+    hw_states_[i].resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+    hw_commands_[i].resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+  }
+
+  // Check expected interface types for each joint (position, velocity)
   for (const hardware_interface::ComponentInfo & joint : info_.joints)
   {
-    // RRBotSystemPositionOnly has exactly one state and command interface on each joint
-    if (joint.command_interfaces.size() != 1)
+    if (joint.command_interfaces.size() != 2)
     {
       RCLCPP_FATAL(
-        rclcpp::get_logger("RRBotSystemPositionOnlyHardware"),
-        "Joint '%s' has %zu command interfaces found. 1 expected.", joint.name.c_str(),
+        rclcpp::get_logger("BRCArmHWInterface"),
+        "Joint '%s' has %zu command interfaces found. 2 expected.", joint.name.c_str(),
         joint.command_interfaces.size());
       return hardware_interface::CallbackReturn::ERROR;
     }
@@ -47,17 +56,25 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
     if (joint.command_interfaces[0].name != hardware_interface::HW_IF_POSITION)
     {
       RCLCPP_FATAL(
-        rclcpp::get_logger("RRBotSystemPositionOnlyHardware"),
+        rclcpp::get_logger("BRCArmHWInterface"),
         "Joint '%s' have %s command interfaces found. '%s' expected.", joint.name.c_str(),
         joint.command_interfaces[0].name.c_str(), hardware_interface::HW_IF_POSITION);
       return hardware_interface::CallbackReturn::ERROR;
     }
-
-    if (joint.state_interfaces.size() != 1)
+    if (joint.command_interfaces[1].name != hardware_interface::HW_IF_VELOCITY)
     {
       RCLCPP_FATAL(
-        rclcpp::get_logger("RRBotSystemPositionOnlyHardware"),
-        "Joint '%s' has %zu state interface. 1 expected.", joint.name.c_str(),
+        rclcpp::get_logger("BRCArmHWInterface"),
+        "Joint '%s' have %s command interfaces found. '%s' expected.", joint.name.c_str(),
+        joint.command_interfaces[1].name.c_str(), hardware_interface::HW_IF_VELOCITY);
+      return hardware_interface::CallbackReturn::ERROR;
+    }
+
+    if (joint.state_interfaces.size() != 2)
+    {
+      RCLCPP_FATAL(
+        rclcpp::get_logger("BRCArmHWInterface"),
+        "Joint '%s' has %zu state interface. 2 expected.", joint.name.c_str(),
         joint.state_interfaces.size());
       return hardware_interface::CallbackReturn::ERROR;
     }
@@ -65,9 +82,17 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
     if (joint.state_interfaces[0].name != hardware_interface::HW_IF_POSITION)
     {
       RCLCPP_FATAL(
-        rclcpp::get_logger("RRBotSystemPositionOnlyHardware"),
+        rclcpp::get_logger("BRCArmHWInterface"),
         "Joint '%s' have %s state interface. '%s' expected.", joint.name.c_str(),
         joint.state_interfaces[0].name.c_str(), hardware_interface::HW_IF_POSITION);
+      return hardware_interface::CallbackReturn::ERROR;
+    }
+    if (joint.state_interfaces[1].name != hardware_interface::HW_IF_VELOCITY)
+    {
+      RCLCPP_FATAL(
+        rclcpp::get_logger("BRCArmHWInterface"),
+        "Joint '%s' have %s state interface. '%s' expected.", joint.name.c_str(),
+        joint.state_interfaces[1].name.c_str(), hardware_interface::HW_IF_VELOCITY);
       return hardware_interface::CallbackReturn::ERROR;
     }
   }
@@ -75,28 +100,27 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-CallbackReturn BRCArmHWInterface::on_configure(const rclcpp_lifecycle::State& previous_state) {
-  // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
-  RCLCPP_INFO(
-    rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Configuring ...please wait...");
+CallbackReturn BRCArmHWInterface::on_configure(const rclcpp_lifecycle::State& /* previous_state */) {
+  // RCLCPP_INFO(
+  //   rclcpp::get_logger("BRCArmHWInterface"), "Configuring ...please wait...");
 
   for (int i = 0; i < hw_start_sec_; i++)
   {
     rclcpp::sleep_for(std::chrono::seconds(1));
-    RCLCPP_INFO(
-      rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "%.1f seconds left...",
-      hw_start_sec_ - i);
-  }
-  // END: This part here is for exemplary purposes - Please do not copy to your production code
-
-  // reset values always when configuring hardware
-  for (uint i = 0; i < hw_states_.size(); i++)
-  {
-    hw_states_[i] = 0;
-    hw_commands_[i] = 0;
+  //   RCLCPP_INFO(
+  //     rclcpp::get_logger("BRCArmHWInterface"), "%.1f seconds left...",
+  //     hw_start_sec_ - i);
   }
 
-  RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Successfully configured!");
+  // Reset values always when configuring hardware
+  for (uint i = 0; i < hw_states_.size(); i++) {
+    for (uint j = 0; j < hw_states_[i].size(); j++) {
+      hw_states_[i][j] = 0;
+      hw_commands_[i][j] = 0;
+    }
+  }
+
+  RCLCPP_INFO(rclcpp::get_logger("BRCArmHWInterface"), "Successfully configured!");
 
   return hardware_interface::CallbackReturn::SUCCESS;
 }
@@ -109,60 +133,61 @@ CallbackReturn BRCArmHWInterface::on_configure(const rclcpp_lifecycle::State& pr
 //
 // }
 
-CallbackReturn BRCArmHWInterface::on_activate(const rclcpp_lifecycle::State& previous_state) {
-  // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
+CallbackReturn BRCArmHWInterface::on_activate(const rclcpp_lifecycle::State& /* previous_state */) {
   RCLCPP_INFO(
-    rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Activating ...please wait...");
+    rclcpp::get_logger("BRCArmHWInterface"), "Activating ...please wait...");
 
   for (int i = 0; i < hw_start_sec_; i++)
   {
     rclcpp::sleep_for(std::chrono::seconds(1));
-    RCLCPP_INFO(
-      rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "%.1f seconds left...",
-      hw_start_sec_ - i);
-  }
-  // END: This part here is for exemplary purposes - Please do not copy to your production code
-
-  // command and state should be equal when starting
-  for (uint i = 0; i < hw_states_.size(); i++)
-  {
-    hw_commands_[i] = hw_states_[i];
+    // RCLCPP_INFO(
+    //   rclcpp::get_logger("BRCArmHWInterface"), "%.1f seconds left...",
+    //   hw_start_sec_ - i);
   }
 
-  RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Successfully activated!");
+  // Command and state should be equal when starting
+  for (uint i = 0; i < hw_states_.size(); i++) {
+    for (uint j = 0; j < hw_states_[i].size(); j++) {
+      hw_commands_[i][j] = hw_states_[i][j];
+    }
+  }
+
+  RCLCPP_INFO(rclcpp::get_logger("BRCArmHWInterface"), "Successfully activated!");
 
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-CallbackReturn BRCArmHWInterface::on_deactivate(const rclcpp_lifecycle::State& previous_state) {
-  // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
+CallbackReturn BRCArmHWInterface::on_deactivate(const rclcpp_lifecycle::State& /* previous_state */) {
   RCLCPP_INFO(
-    rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Deactivating ...please wait...");
+    rclcpp::get_logger("BRCArmHWInterface"), "Deactivating ...please wait...");
 
   for (int i = 0; i < hw_stop_sec_; i++)
   {
     rclcpp::sleep_for(std::chrono::seconds(1));
-    RCLCPP_INFO(
-      rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "%.1f seconds left...",
-      hw_stop_sec_ - i);
+    // RCLCPP_INFO(
+    //   rclcpp::get_logger("BRCArmHWInterface"), "%.1f seconds left...",
+    //   hw_stop_sec_ - i);
   }
 
-  RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Successfully deactivated!");
-  // END: This part here is for exemplary purposes - Please do not copy to your production code
+  RCLCPP_INFO(rclcpp::get_logger("BRCArmHWInterface"), "Successfully deactivated!");
 
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-CallbackReturn BRCArmHWInterface::on_error(const rclcpp_lifecycle::State& previous_state) {
-
+CallbackReturn BRCArmHWInterface::on_error(const rclcpp_lifecycle::State& /* previous_state */) {
+  return hardware_interface::CallbackReturn::ERROR;
 }
 
 std::vector<hardware_interface::StateInterface> BRCArmHWInterface::export_state_interfaces() {
   std::vector<hardware_interface::StateInterface> state_interfaces;
-  for (uint i = 0; i < info_.joints.size(); i++)
-  {
+  for (uint j = 0; j < info_.joints.size(); j++) {
     state_interfaces.emplace_back(hardware_interface::StateInterface(
-      info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_states_[i]));
+      info_.joints[j].name, hardware_interface::HW_IF_POSITION, &hw_states_[POSITION_INTERFACE_INDEX][j]));
+    RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
+
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+      info_.joints[j].name, hardware_interface::HW_IF_VELOCITY, &hw_states_[VELOCITY_INTERFACE_INDEX][j]));
+    RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
   }
 
   return state_interfaces;
@@ -170,48 +195,58 @@ std::vector<hardware_interface::StateInterface> BRCArmHWInterface::export_state_
 
 std::vector<hardware_interface::CommandInterface> BRCArmHWInterface::export_command_interfaces() {
   std::vector<hardware_interface::CommandInterface> command_interfaces;
-  for (uint i = 0; i < info_.joints.size(); i++)
-  {
+  for (uint j = 0; j < info_.joints.size(); j++) {
     command_interfaces.emplace_back(hardware_interface::CommandInterface(
-      info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_commands_[i]));
-    RCLCPP_INFO(rclcpp::get_logger("cmd interfaces"), "interface: %d added", i);
+      info_.joints[j].name, hardware_interface::HW_IF_POSITION, &hw_commands_[POSITION_INTERFACE_INDEX][j]));
+    RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
+
+    command_interfaces.emplace_back(hardware_interface::CommandInterface(
+      info_.joints[j].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_[VELOCITY_INTERFACE_INDEX][j]));
+    RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
   }
 
   return command_interfaces;
 }
 
-return_type BRCArmHWInterface::read(const rclcpp::Time & time, const rclcpp::Duration & period) {
-  // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
-  RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Reading...");
-
-  for (uint i = 0; i < hw_states_.size(); i++)
+return_type BRCArmHWInterface::read(const rclcpp::Time & /* time */, const rclcpp::Duration & /* period */) {
+  auto mirror_command_to_state = [](auto & states_, auto commands_, size_t start_index = 0)
   {
-    // Simulate RRBot's movement
-    hw_states_[i] = hw_states_[i] + (hw_commands_[i] - hw_states_[i]) / hw_slowdown_;
-    RCLCPP_INFO(
-      rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Got state %.5f for joint %d!",
-      hw_states_[i], i);
+    for (size_t i = start_index; i < states_.size(); ++i)
+    {
+      for (size_t j = 0; j < states_[i].size(); ++j)
+      {
+        if (!std::isnan(commands_[i][j]))
+        {
+          states_[i][j] = commands_[i][j];
+        }
+      }
+    }
+  };
+
+  for (uint j = 0; j < hw_states_[POSITION_INTERFACE_INDEX].size(); j++)
+  {
+    // Simulate movement
+    hw_states_[POSITION_INTERFACE_INDEX][j] = hw_states_[POSITION_INTERFACE_INDEX][j] +
+      (hw_commands_[POSITION_INTERFACE_INDEX][j] - hw_states_[POSITION_INTERFACE_INDEX][j]) / hw_slowdown_;
+    // RCLCPP_INFO(
+    //   rclcpp::get_logger("BRCArmHWInterface"), "Got state %.5f for joint %d!",
+    //   hw_states_[i], i);
   }
-  RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Joints successfully read!");
-  // END: This part here is for exemplary purposes - Please do not copy to your production code
+
+  // Mirror remaining interface types (velocity)
+  mirror_command_to_state(hw_states_, hw_commands_, 1);
 
   return hardware_interface::return_type::OK;
 }
 
-return_type BRCArmHWInterface::write(const rclcpp::Time & time, const rclcpp::Duration & period) {
-  // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
-  RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Writing...");
-
+return_type BRCArmHWInterface::write(const rclcpp::Time & /* time */, const rclcpp::Duration & /* period */) {
   for (uint i = 0; i < hw_commands_.size(); i++)
   {
     // Simulate sending commands to the hardware
-    RCLCPP_INFO(
-      rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Got command %.5f for joint %d!",
-      hw_commands_[i], i);
+    // RCLCPP_INFO(
+    //   rclcpp::get_logger("BRCArmHWInterface"), "Got command %.5f for joint %d!",
+    //   hw_commands_[i], i);
   }
-  RCLCPP_INFO(
-    rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Joints successfully written!");
-  // END: This part here is for exemplary purposes - Please do not copy to your production code
 
   return hardware_interface::return_type::OK;
 }
