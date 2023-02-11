@@ -31,7 +31,7 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
   // END: This part here is for exemplary purposes - Please do not copy to your production code
   hw_start_sec_ = 0;
   hw_stop_sec_ = 3.0;
-  hw_slowdown_ = 100;
+  hw_slowdown_ = 10;
 
   // Position, velocity interfaces
   hw_states_.resize(2);
@@ -240,7 +240,7 @@ return_type BRCArmHWInterface::read(const rclcpp::Time & /* time */, const rclcp
 }
 
 return_type BRCArmHWInterface::write(const rclcpp::Time & /* time */, const rclcpp::Duration & /* period */) {
-  for (uint i = 0; i < hw_commands_.size(); i++)
+  for (uint i = 0; i < hw_commands_[POSITION_INTERFACE_INDEX].size(); i++)
   {
     // Simulate sending commands to the hardware
     // RCLCPP_INFO(
