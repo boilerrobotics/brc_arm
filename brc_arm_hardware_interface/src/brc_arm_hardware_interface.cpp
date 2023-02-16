@@ -29,6 +29,12 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
   // hw_stop_sec_ = std::stod(info_.hardware_parameters["example_param_hw_stop_duration_sec"]);
   // hw_slowdown_ = std::stod(info_.hardware_parameters["example_param_hw_slowdown"]);
   // END: This part here is for exemplary purposes - Please do not copy to your production code
+  reductions_.resize(info_.joints.size(), std::numeric_limits<_Float64>::quiet_NaN());
+  for (auto j = 0u; j < info_.joints.size(); j++) {
+    // reductions_[j] = std::stod(info_.hardware_parameters[""]);
+    reductions_[j] = 1;  // testing purposes
+  }
+
   hw_start_sec_ = 0;
   hw_stop_sec_ = 3.0;
   hw_slowdown_ = 10;
@@ -40,6 +46,8 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
     hw_states_[i].resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
     hw_commands_[i].resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   }
+
+  enc_values_.resize(info_.joints.size(), std::numeric_limits<_Float64>::quiet_NaN());
 
   // Check expected interface types for each joint (position, velocity)
   for (const hardware_interface::ComponentInfo & joint : info_.joints)
@@ -183,11 +191,11 @@ std::vector<hardware_interface::StateInterface> BRCArmHWInterface::export_state_
   for (uint j = 0; j < info_.joints.size(); j++) {
     state_interfaces.emplace_back(hardware_interface::StateInterface(
       info_.joints[j].name, hardware_interface::HW_IF_POSITION, &hw_states_[POSITION_INTERFACE_INDEX][j]));
-    RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
+    // RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
 
     state_interfaces.emplace_back(hardware_interface::StateInterface(
       info_.joints[j].name, hardware_interface::HW_IF_VELOCITY, &hw_states_[VELOCITY_INTERFACE_INDEX][j]));
-    RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
+    // RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
   }
 
   return state_interfaces;
@@ -198,11 +206,11 @@ std::vector<hardware_interface::CommandInterface> BRCArmHWInterface::export_comm
   for (uint j = 0; j < info_.joints.size(); j++) {
     command_interfaces.emplace_back(hardware_interface::CommandInterface(
       info_.joints[j].name, hardware_interface::HW_IF_POSITION, &hw_commands_[POSITION_INTERFACE_INDEX][j]));
-    RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
+    // RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
 
     command_interfaces.emplace_back(hardware_interface::CommandInterface(
       info_.joints[j].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_[VELOCITY_INTERFACE_INDEX][j]));
-    RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
+    // RCLCPP_INFO(rclcpp::get_logger("state interfaces"), "interface: %s added", info_.joints[j].name.c_str());
   }
 
   return command_interfaces;
@@ -246,7 +254,12 @@ return_type BRCArmHWInterface::write(const rclcpp::Time & /* time */, const rclc
     // RCLCPP_INFO(
     //   rclcpp::get_logger("BRCArmHWInterface"), "Got command %.5f for joint %d!",
     //   hw_commands_[i], i);
+    enc_values_[i] = (hw_commands_[POSITION_INTERFACE_INDEX][i] / (2 * M_PI)) * reductions_[i];
   }
+  
+  auto message = brc_arm_msg_srv::msg::Joints();
+  message.encoder_goal = enc_values_;
+  joints_pub_.pub(message);
 
   return hardware_interface::return_type::OK;
 }

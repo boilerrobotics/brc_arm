@@ -3,6 +3,11 @@
 #include "rclcpp/rclcpp.hpp"
 #include "hardware_interface/system_interface.hpp"
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
+#include "brc_arm_msg_srv/msg/encoders.hpp"
+#include "brc_arm_msg_srv/msg/joints.hpp"
+#include "brc_arm_hardware_interface/brc_arm_joints_pub.hpp"
+#include "brc_arm_hardware_interface/brc_arm_encoders_sub.hpp"
+#include "std_msgs/msg/string.hpp"
 #include <memory>
 #include <string>
 #include <vector>
@@ -51,8 +56,14 @@ private:
     std::vector<std::vector<double>> hw_commands_;
     std::vector<std::vector<double>> hw_states_;
 
+    std::vector<_Float64> reductions_;
+    std::vector<_Float64> enc_values_;
+
     const size_t POSITION_INTERFACE_INDEX = 0;
     const size_t VELOCITY_INTERFACE_INDEX = 1;
+
+    ArmJointsPublisher joints_pub_;
+    ArmEncodersSubscriber enc_sub_;
 };
 
 }

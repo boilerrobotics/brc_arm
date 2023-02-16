@@ -14,6 +14,7 @@ find_package(hardware_interface REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
+find_package(brc_arm_msg_srv REQUIRED)
 
 add_library(
   ${PROJECT_NAME}
@@ -32,6 +33,7 @@ ament_target_dependencies(
   pluginlib
   rclcpp
   rclcpp_lifecycle
+  brc_arm_msg_srv
 )
 
 pluginlib_export_plugin_description_file(
