@@ -267,7 +267,7 @@ return_type BRCArmHWInterface::write(const rclcpp::Time & /* time */, const rclc
     enc_goals_[i] = (hw_commands_[POSITION_INTERFACE_INDEX][i] / (2 * M_PI)) * reductions_[i];
   }
   
-  auto message = brc_arm_msg_srv::msg::Joints();
+  auto message = brc_arm_msg_srv::msg::Positions();
   message.encoder_goal = enc_goals_;
   joints_pub_.pub(message);
 

@@ -1,21 +1,19 @@
 #include <memory>
 
 #include "rclcpp/rclcpp.hpp"
-#include "brc_arm_msg_srv/msg/joints.hpp"
+#include "brc_arm_msg_srv/msg/positions.hpp"
 using std::placeholders::_1;
 
 class ArmEncodersSubscriber : public rclcpp::Node {
 public:
     ArmEncodersSubscriber() : Node("brc_arm_encoders_subscriber") {
-        subscriber_ = this -> create_subscription<brc_arm_msg_srv::msg::Joints>("brc_arm/positions", 10,
+        subscriber_ = this -> create_subscription<brc_arm_msg_srv::msg::Positions>("brc_arm/positions", 10,
             std::bind(&ArmEncodersSubscriber::topic_callback, this, _1));
     }
 
 private:
-    void topic_callback(const brc_arm_msg_srv::msg::Joints& msg) const {
+    void topic_callback(const brc_arm_msg_srv::msg::Positions& msg) const {
         RCLCPP_INFO(this -> get_logger(), "Heard: '%lf' for joint 1", msg.encoder_goal[1]);
-        // std::cout << "HEARD" << std::endl;
-        // RCLCPP_INFO_STREAM(this -> get_logger(), "Heard: '" << msg.encoder_goal[1] << "'");
     }
-    rclcpp::Subscription<brc_arm_msg_srv::msg::Joints>::SharedPtr subscriber_;
+    rclcpp::Subscription<brc_arm_msg_srv::msg::Positions>::SharedPtr subscriber_;
 };

@@ -4,7 +4,7 @@
 #include "hardware_interface/system_interface.hpp"
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "brc_arm_msg_srv/msg/encoders.hpp"
-#include "brc_arm_msg_srv/msg/joints.hpp"
+#include "brc_arm_msg_srv/msg/positions.hpp"
 #include "brc_arm_hardware_interface/brc_arm_joints_pub.hpp"
 #include "brc_arm_hardware_interface/brc_arm_encoders_sub.hpp"
 #include "std_msgs/msg/string.hpp"
