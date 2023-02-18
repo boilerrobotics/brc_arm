@@ -29,11 +29,20 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
   // hw_stop_sec_ = std::stod(info_.hardware_parameters["example_param_hw_stop_duration_sec"]);
   // hw_slowdown_ = std::stod(info_.hardware_parameters["example_param_hw_slowdown"]);
   // END: This part here is for exemplary purposes - Please do not copy to your production code
-  reductions_.resize(info_.joints.size(), std::numeric_limits<_Float64>::quiet_NaN());
-  for (auto j = 0u; j < info_.joints.size(); j++) {
-    // reductions_[j] = std::stod(info_.hardware_parameters[""]);
-    reductions_[j] = 1;  // testing purposes
+  reductions_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+  if (reductions_.size() != 7) {
+    RCLCPP_FATAL(
+      rclcpp::get_logger("BRCArmHWInterface"),
+      "Hardware info has %zu joints, 7 expected.", reductions_.size());
+    return hardware_interface::CallbackReturn::ERROR;
   }
+  reductions_[0] = 1863.512284;
+  reductions_[1] = 5255.871815;
+  reductions_[2] = 5255.871815;
+  reductions_[3] = 30273.82166;
+  reductions_[4] = 81.52866242;
+  reductions_[5] = 163.0573248;
+  reductions_[6] = 1;
 
   hw_start_sec_ = 0;
   hw_stop_sec_ = 3.0;
@@ -47,7 +56,8 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
     hw_commands_[i].resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   }
 
-  enc_values_.resize(info_.joints.size(), std::numeric_limits<_Float64>::quiet_NaN());
+  enc_goals_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+  enc_counts_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
 
   // Check expected interface types for each joint (position, velocity)
   for (const hardware_interface::ComponentInfo & joint : info_.joints)
@@ -254,11 +264,11 @@ return_type BRCArmHWInterface::write(const rclcpp::Time & /* time */, const rclc
     // RCLCPP_INFO(
     //   rclcpp::get_logger("BRCArmHWInterface"), "Got command %.5f for joint %d!",
     //   hw_commands_[i], i);
-    enc_values_[i] = (hw_commands_[POSITION_INTERFACE_INDEX][i] / (2 * M_PI)) * reductions_[i];
+    enc_goals_[i] = (hw_commands_[POSITION_INTERFACE_INDEX][i] / (2 * M_PI)) * reductions_[i];
   }
   
   auto message = brc_arm_msg_srv::msg::Joints();
-  message.encoder_goal = enc_values_;
+  message.encoder_goal = enc_goals_;
   joints_pub_.pub(message);
 
   return hardware_interface::return_type::OK;

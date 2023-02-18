@@ -56,8 +56,9 @@ private:
     std::vector<std::vector<double>> hw_commands_;
     std::vector<std::vector<double>> hw_states_;
 
-    std::vector<_Float64> reductions_;
-    std::vector<_Float64> enc_values_;
+    std::vector<double> reductions_;
+    std::vector<double> enc_goals_;
+    std::vector<double> enc_counts_;
 
     const size_t POSITION_INTERFACE_INDEX = 0;
     const size_t VELOCITY_INTERFACE_INDEX = 1;
