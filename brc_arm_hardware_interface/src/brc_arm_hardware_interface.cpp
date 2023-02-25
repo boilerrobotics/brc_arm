@@ -6,6 +6,7 @@
 
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "rclcpp/wait_for_message.hpp"
 #include "brc_arm_hardware_interface/brc_arm_hardware_interface.hpp"
 #include "pluginlib/class_list_macros.hpp"
 
@@ -241,15 +242,29 @@ return_type BRCArmHWInterface::read(const rclcpp::Time & /* time */, const rclcp
     }
   };
 
-  for (uint j = 0; j < hw_states_[POSITION_INTERFACE_INDEX].size(); j++)
-  {
-    // Simulate movement
-    hw_states_[POSITION_INTERFACE_INDEX][j] = hw_states_[POSITION_INTERFACE_INDEX][j] +
-      (hw_commands_[POSITION_INTERFACE_INDEX][j] - hw_states_[POSITION_INTERFACE_INDEX][j]) / hw_slowdown_;
-    // RCLCPP_INFO(
-    //   rclcpp::get_logger("BRCArmHWInterface"), "Got state %.5f for joint %d!",
-    //   hw_states_[i], i);
-  }
+  /* using namespace std::chrono_literals;
+  auto node = std::make_shared<rclcpp::Node>("enc_sub_node");
+  auto enc_msg = brc_arm_msg_srv::msg::Positions();
+  bool ret = rclcpp::wait_for_message<brc_arm_msg_srv::msg::Positions>(enc_msg, node, "/brc_arm/encoders", 0.01s); */
+
+  // if (ret) {
+    for (uint j = 0; j < hw_states_[POSITION_INTERFACE_INDEX].size(); j++)
+    {
+      // Simulate movement
+      // hw_states_[POSITION_INTERFACE_INDEX][j] = hw_states_[POSITION_INTERFACE_INDEX][j] +
+      //   (hw_commands_[POSITION_INTERFACE_INDEX][j] - hw_states_[POSITION_INTERFACE_INDEX][j]) / hw_slowdown_;
+      // RCLCPP_INFO(
+      //   rclcpp::get_logger("BRCArmHWInterface"), "Got state %.5f for joint %d!",
+      //   hw_states_[i], i);
+
+      hw_states_[POSITION_INTERFACE_INDEX][j] = enc_sub_.enc_counts[j] * (2 * M_PI) / reductions_[j];
+    }
+
+    // RCLCPP_INFO(rclcpp::get_logger("BRCArmHWInterface"), "HERE");
+  /* } else {
+    // mirror_command_to_state(hw_states_, hw_commands_, POSITION_INTERFACE_INDEX);
+    RCLCPP_INFO(rclcpp::get_logger("BRCArmHWInterface"), "Did not recv!");
+  } */
 
   // Mirror remaining interface types (velocity)
   mirror_command_to_state(hw_states_, hw_commands_, 1);
