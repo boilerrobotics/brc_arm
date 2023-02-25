@@ -39,7 +39,7 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
   }
   reductions_[0] = 1863.512284;
   reductions_[1] = 5255.871815;
-  reductions_[2] = 5255.871815;
+  reductions_[2] = -5255.871815;
   reductions_[3] = 30273.82166;
   reductions_[4] = 81.52866242;
   reductions_[5] = 163.0573248;
@@ -248,17 +248,17 @@ return_type BRCArmHWInterface::read(const rclcpp::Time & /* time */, const rclcp
   bool ret = rclcpp::wait_for_message<brc_arm_msg_srv::msg::Positions>(enc_msg, node, "/brc_arm/encoders", 0.01s); */
 
   // if (ret) {
-    for (uint j = 0; j < hw_states_[POSITION_INTERFACE_INDEX].size(); j++)
-    {
-      // Simulate movement
-      // hw_states_[POSITION_INTERFACE_INDEX][j] = hw_states_[POSITION_INTERFACE_INDEX][j] +
-      //   (hw_commands_[POSITION_INTERFACE_INDEX][j] - hw_states_[POSITION_INTERFACE_INDEX][j]) / hw_slowdown_;
-      // RCLCPP_INFO(
-      //   rclcpp::get_logger("BRCArmHWInterface"), "Got state %.5f for joint %d!",
-      //   hw_states_[i], i);
-
+    for (uint j = 0; j < 4; j++) {
       hw_states_[POSITION_INTERFACE_INDEX][j] = enc_sub_.enc_counts[j] * (2 * M_PI) / reductions_[j];
     }
+
+    // Differential drive calculations - motor encoder values to pivot, rotate
+    hw_states_[POSITION_INTERFACE_INDEX][4] = (motor_to_pr[0][0] * enc_sub_.enc_counts[5] * (2 * M_PI) / reductions_[5]) +
+                                              (motor_to_pr[0][1] * enc_sub_.enc_counts[4] * (2 * M_PI) / reductions_[4]);
+    hw_states_[POSITION_INTERFACE_INDEX][5] = (motor_to_pr[1][0] * enc_sub_.enc_counts[5] * (2 * M_PI) / reductions_[5]) +
+                                              (motor_to_pr[1][1] * enc_sub_.enc_counts[4] * (2 * M_PI) / reductions_[4]);
+
+    hw_states_[POSITION_INTERFACE_INDEX][6] = enc_sub_.enc_counts[6] * (2 * M_PI) / reductions_[6];
 
     // RCLCPP_INFO(rclcpp::get_logger("BRCArmHWInterface"), "HERE");
   /* } else {
@@ -273,14 +273,17 @@ return_type BRCArmHWInterface::read(const rclcpp::Time & /* time */, const rclcp
 }
 
 return_type BRCArmHWInterface::write(const rclcpp::Time & /* time */, const rclcpp::Duration & /* period */) {
-  for (uint i = 0; i < hw_commands_[POSITION_INTERFACE_INDEX].size(); i++)
-  {
-    // Simulate sending commands to the hardware
-    // RCLCPP_INFO(
-    //   rclcpp::get_logger("BRCArmHWInterface"), "Got command %.5f for joint %d!",
-    //   hw_commands_[i], i);
+  for (uint i = 0; i < 4; i++) {
     enc_goals_[i] = (hw_commands_[POSITION_INTERFACE_INDEX][i] / (2 * M_PI)) * reductions_[i];
   }
+
+  // Differential drive calculations - pivot, rotate to motor encoder values
+  enc_goals_[4] = (pr_to_motor[1][0] * (hw_commands_[POSITION_INTERFACE_INDEX][4] / (2 * M_PI)) * reductions_[4]) +
+                  (pr_to_motor[1][1] * (hw_commands_[POSITION_INTERFACE_INDEX][5] / (2 * M_PI)) * reductions_[4]);
+  enc_goals_[5] = (pr_to_motor[0][0] * (hw_commands_[POSITION_INTERFACE_INDEX][4] / (2 * M_PI)) * reductions_[5]) +
+                  (pr_to_motor[0][1] * (hw_commands_[POSITION_INTERFACE_INDEX][5] / (2 * M_PI)) * reductions_[5]);
+
+  enc_goals_[6] = (hw_commands_[POSITION_INTERFACE_INDEX][6] / (2 * M_PI)) * reductions_[6];
   
   auto message = brc_arm_msg_srv::msg::Positions();
   message.encoder_goal = enc_goals_;

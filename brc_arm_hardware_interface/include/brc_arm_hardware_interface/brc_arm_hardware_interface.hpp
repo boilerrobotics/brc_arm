@@ -65,6 +65,11 @@ private:
 
     ArmJointsPublisher joints_pub_;
     ArmEncodersSubscriber enc_sub_;
+
+    // wrist2_joint (4) is pivot, EEbase_joint (5) is rotate
+    // motor 4 is top motor, motor 5 is bottom motor
+    const float motor_to_pr[2][2] = {{0.5, -0.5}, {0.25, 0.25}};
+    const float pr_to_motor[2][2] = {{1, 2}, {-1, 2}};
 };
 
 }
