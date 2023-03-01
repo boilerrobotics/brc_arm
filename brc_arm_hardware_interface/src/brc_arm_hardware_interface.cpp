@@ -246,34 +246,35 @@ return_type BRCArmHWInterface::read(const rclcpp::Time & /* time */, const rclcp
 
   if (ret) {
     for (uint j = 0; j < 4; j++) {
-      hw_states_[POSITION_INTERFACE_INDEX][j] = enc_msg.encoder_count[j] * (2 * M_PI) / reductions_[j];
+      hw_states_[POSITION_INTERFACE_INDEX][j] = enc_msg.encoder_count[j] / reductions_[j];
     }
 
     // Differential drive calculations - motor encoder values to pivot, rotate
-    hw_states_[POSITION_INTERFACE_INDEX][4] = (motor_to_pr[0][0] * enc_msg.encoder_count[5] * (2 * M_PI) / reductions_[5]) +
-                                              (motor_to_pr[0][1] * enc_msg.encoder_count[4] * (2 * M_PI) / reductions_[4]);
-    hw_states_[POSITION_INTERFACE_INDEX][5] = (motor_to_pr[1][0] * enc_msg.encoder_count[5] * (2 * M_PI) / reductions_[5]) +
-                                              (motor_to_pr[1][1] * enc_msg.encoder_count[4] * (2 * M_PI) / reductions_[4]);
+    hw_states_[POSITION_INTERFACE_INDEX][4] = (motor_to_pr[0][0] * enc_msg.encoder_count[5] / reductions_[5]) +
+                                              (motor_to_pr[0][1] * enc_msg.encoder_count[4] / reductions_[4]);
+    hw_states_[POSITION_INTERFACE_INDEX][5] = (motor_to_pr[1][0] * enc_msg.encoder_count[5] / reductions_[5]) +
+                                              (motor_to_pr[1][1] * enc_msg.encoder_count[4] / reductions_[4]);
 
-    hw_states_[POSITION_INTERFACE_INDEX][6] = enc_msg.encoder_count[6] * (2 * M_PI) / reductions_[6];
+    hw_states_[POSITION_INTERFACE_INDEX][6] = enc_msg.encoder_count[6] / reductions_[6];
   } else {
+    // Mirrors position 
     mirror_command_to_state(hw_states_, hw_commands_, POSITION_INTERFACE_INDEX);
-    RCLCPP_INFO(rclcpp::get_logger("BRCArmHWInterface"), "Did not recv!");
+    // RCLCPP_INFO(rclcpp::get_logger("BRCArmHWInterface"), "Did not recv!");
   }
   #endif
 
   #ifndef EN_FEEDBACK
   for (uint j = 0; j < 4; j++) {
-    hw_states_[POSITION_INTERFACE_INDEX][j] = enc_sub_.enc_counts[j] * (2 * M_PI) / reductions_[j];
+    hw_states_[POSITION_INTERFACE_INDEX][j] = enc_sub_.enc_counts[j] / reductions_[j];
   }
 
   // Differential drive calculations - motor encoder values to pivot, rotate
-  hw_states_[POSITION_INTERFACE_INDEX][4] = (motor_to_pr[0][0] * enc_sub_.enc_counts[5] * (2 * M_PI) / reductions_[5]) +
-                                            (motor_to_pr[0][1] * enc_sub_.enc_counts[4] * (2 * M_PI) / reductions_[4]);
-  hw_states_[POSITION_INTERFACE_INDEX][5] = (motor_to_pr[1][0] * enc_sub_.enc_counts[5] * (2 * M_PI) / reductions_[5]) +
-                                            (motor_to_pr[1][1] * enc_sub_.enc_counts[4] * (2 * M_PI) / reductions_[4]);
+  hw_states_[POSITION_INTERFACE_INDEX][4] = (motor_to_pr[0][0] * enc_sub_.enc_counts[5] / reductions_[5]) +
+                                            (motor_to_pr[0][1] * enc_sub_.enc_counts[4] / reductions_[4]);
+  hw_states_[POSITION_INTERFACE_INDEX][5] = (motor_to_pr[1][0] * enc_sub_.enc_counts[5] / reductions_[5]) +
+                                            (motor_to_pr[1][1] * enc_sub_.enc_counts[4] / reductions_[4]);
 
-  hw_states_[POSITION_INTERFACE_INDEX][6] = enc_sub_.enc_counts[6] * (2 * M_PI) / reductions_[6];
+  hw_states_[POSITION_INTERFACE_INDEX][6] = enc_sub_.enc_counts[6] / reductions_[6];
   #endif
 
   // Mirror remaining interface types (velocity)
