@@ -13,6 +13,8 @@
 #include <vector>
 #include <iostream>
 
+#define EN_FEEDBACK  // Comment out to disable feedback via wait_for_message()
+
 namespace brc_arm_hardware_interface {
 
 using hardware_interface::CallbackReturn;

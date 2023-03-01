@@ -25,11 +25,6 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
   // RCLCPP_INFO(
   //   rclcpp::get_logger("BRCArmHWInterface"), "Init ...please wait...");
 
-  // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
-  // hw_start_sec_ = std::stod(info_.hardware_parameters["example_param_hw_start_duration_sec"]);
-  // hw_stop_sec_ = std::stod(info_.hardware_parameters["example_param_hw_stop_duration_sec"]);
-  // hw_slowdown_ = std::stod(info_.hardware_parameters["example_param_hw_slowdown"]);
-  // END: This part here is for exemplary purposes - Please do not copy to your production code
   reductions_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   if (reductions_.size() != 7) {
     RCLCPP_FATAL(
@@ -45,6 +40,7 @@ CallbackReturn BRCArmHWInterface::on_init(const hardware_interface::HardwareInfo
   reductions_[5] = 163.0573248;
   reductions_[6] = 1;
 
+  // For initial testing only
   hw_start_sec_ = 0;
   hw_stop_sec_ = 3.0;
   hw_slowdown_ = 10;
@@ -242,48 +238,62 @@ return_type BRCArmHWInterface::read(const rclcpp::Time & /* time */, const rclcp
     }
   };
 
-  /* using namespace std::chrono_literals;
+  #ifdef EN_FEEDBACK
+  using namespace std::chrono_literals;
   auto node = std::make_shared<rclcpp::Node>("enc_sub_node");
-  auto enc_msg = brc_arm_msg_srv::msg::Positions();
-  bool ret = rclcpp::wait_for_message<brc_arm_msg_srv::msg::Positions>(enc_msg, node, "/brc_arm/encoders", 0.01s); */
+  auto enc_msg = brc_arm_msg_srv::msg::Encoders();
+  bool ret = rclcpp::wait_for_message<brc_arm_msg_srv::msg::Encoders>(enc_msg, node, "/brc_arm/encoders", 0.01s);
 
-  // if (ret) {
+  if (ret) {
     for (uint j = 0; j < 4; j++) {
-      hw_states_[POSITION_INTERFACE_INDEX][j] = enc_sub_.enc_counts[j] * (2 * M_PI) / reductions_[j];
+      hw_states_[POSITION_INTERFACE_INDEX][j] = enc_msg.encoder_count[j] * (2 * M_PI) / reductions_[j];
     }
 
     // Differential drive calculations - motor encoder values to pivot, rotate
-    hw_states_[POSITION_INTERFACE_INDEX][4] = (motor_to_pr[0][0] * enc_sub_.enc_counts[5] * (2 * M_PI) / reductions_[5]) +
-                                              (motor_to_pr[0][1] * enc_sub_.enc_counts[4] * (2 * M_PI) / reductions_[4]);
-    hw_states_[POSITION_INTERFACE_INDEX][5] = (motor_to_pr[1][0] * enc_sub_.enc_counts[5] * (2 * M_PI) / reductions_[5]) +
-                                              (motor_to_pr[1][1] * enc_sub_.enc_counts[4] * (2 * M_PI) / reductions_[4]);
+    hw_states_[POSITION_INTERFACE_INDEX][4] = (motor_to_pr[0][0] * enc_msg.encoder_count[5] * (2 * M_PI) / reductions_[5]) +
+                                              (motor_to_pr[0][1] * enc_msg.encoder_count[4] * (2 * M_PI) / reductions_[4]);
+    hw_states_[POSITION_INTERFACE_INDEX][5] = (motor_to_pr[1][0] * enc_msg.encoder_count[5] * (2 * M_PI) / reductions_[5]) +
+                                              (motor_to_pr[1][1] * enc_msg.encoder_count[4] * (2 * M_PI) / reductions_[4]);
 
-    hw_states_[POSITION_INTERFACE_INDEX][6] = enc_sub_.enc_counts[6] * (2 * M_PI) / reductions_[6];
-
-    // RCLCPP_INFO(rclcpp::get_logger("BRCArmHWInterface"), "HERE");
-  /* } else {
-    // mirror_command_to_state(hw_states_, hw_commands_, POSITION_INTERFACE_INDEX);
+    hw_states_[POSITION_INTERFACE_INDEX][6] = enc_msg.encoder_count[6] * (2 * M_PI) / reductions_[6];
+  } else {
+    mirror_command_to_state(hw_states_, hw_commands_, POSITION_INTERFACE_INDEX);
     RCLCPP_INFO(rclcpp::get_logger("BRCArmHWInterface"), "Did not recv!");
-  } */
+  }
+  #endif
+
+  #ifndef EN_FEEDBACK
+  for (uint j = 0; j < 4; j++) {
+    hw_states_[POSITION_INTERFACE_INDEX][j] = enc_sub_.enc_counts[j] * (2 * M_PI) / reductions_[j];
+  }
+
+  // Differential drive calculations - motor encoder values to pivot, rotate
+  hw_states_[POSITION_INTERFACE_INDEX][4] = (motor_to_pr[0][0] * enc_sub_.enc_counts[5] * (2 * M_PI) / reductions_[5]) +
+                                            (motor_to_pr[0][1] * enc_sub_.enc_counts[4] * (2 * M_PI) / reductions_[4]);
+  hw_states_[POSITION_INTERFACE_INDEX][5] = (motor_to_pr[1][0] * enc_sub_.enc_counts[5] * (2 * M_PI) / reductions_[5]) +
+                                            (motor_to_pr[1][1] * enc_sub_.enc_counts[4] * (2 * M_PI) / reductions_[4]);
+
+  hw_states_[POSITION_INTERFACE_INDEX][6] = enc_sub_.enc_counts[6] * (2 * M_PI) / reductions_[6];
+  #endif
 
   // Mirror remaining interface types (velocity)
-  mirror_command_to_state(hw_states_, hw_commands_, 1);
+  mirror_command_to_state(hw_states_, hw_commands_, VELOCITY_INTERFACE_INDEX);
 
   return hardware_interface::return_type::OK;
 }
 
 return_type BRCArmHWInterface::write(const rclcpp::Time & /* time */, const rclcpp::Duration & /* period */) {
   for (uint i = 0; i < 4; i++) {
-    enc_goals_[i] = (hw_commands_[POSITION_INTERFACE_INDEX][i] / (2 * M_PI)) * reductions_[i];
+    enc_goals_[i] = (hw_commands_[POSITION_INTERFACE_INDEX][i]) * reductions_[i];
   }
 
   // Differential drive calculations - pivot, rotate to motor encoder values
-  enc_goals_[4] = (pr_to_motor[1][0] * (hw_commands_[POSITION_INTERFACE_INDEX][4] / (2 * M_PI)) * reductions_[4]) +
-                  (pr_to_motor[1][1] * (hw_commands_[POSITION_INTERFACE_INDEX][5] / (2 * M_PI)) * reductions_[4]);
-  enc_goals_[5] = (pr_to_motor[0][0] * (hw_commands_[POSITION_INTERFACE_INDEX][4] / (2 * M_PI)) * reductions_[5]) +
-                  (pr_to_motor[0][1] * (hw_commands_[POSITION_INTERFACE_INDEX][5] / (2 * M_PI)) * reductions_[5]);
+  enc_goals_[4] = (pr_to_motor[1][0] * hw_commands_[POSITION_INTERFACE_INDEX][4] * reductions_[4]) +
+                  (pr_to_motor[1][1] * hw_commands_[POSITION_INTERFACE_INDEX][5] * reductions_[4]);
+  enc_goals_[5] = (pr_to_motor[0][0] * hw_commands_[POSITION_INTERFACE_INDEX][4] * reductions_[5]) +
+                  (pr_to_motor[0][1] * hw_commands_[POSITION_INTERFACE_INDEX][5] * reductions_[5]);
 
-  enc_goals_[6] = (hw_commands_[POSITION_INTERFACE_INDEX][6] / (2 * M_PI)) * reductions_[6];
+  enc_goals_[6] = hw_commands_[POSITION_INTERFACE_INDEX][6] * reductions_[6];
   
   auto message = brc_arm_msg_srv::msg::Positions();
   message.encoder_goal = enc_goals_;
