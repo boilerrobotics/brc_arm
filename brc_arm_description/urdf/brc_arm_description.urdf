@@ -153,7 +153,7 @@
     type="revolute">
     <origin
       xyz="0 0 0.1"
-      rpy="0 0.5236 0" />
+      rpy="0 0.2793 0" />
     <parent
       link="carriage_link" />
     <child
@@ -217,7 +217,7 @@
     type="revolute">
     <origin
       xyz="-0.35 0 0"
-      rpy="0 -0.7854 0" />
+      rpy="0 -1.000 0" />
     <parent
       link="midarm1_link" />
     <child
