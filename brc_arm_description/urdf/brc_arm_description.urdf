@@ -345,7 +345,7 @@
     type="revolute">
     <origin
       xyz="0.225 0 0"
-      rpy="-3.1416 -1.2217 3.1416" />
+      rpy="-3.1416 -3.1241 3.1416" />
     <parent
       link="wrist1_link" />
     <child
@@ -353,8 +353,8 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="0"
-      upper="4.165"
+      lower="-1.9024"
+      upper="2.2626"
       effort="0"
       velocity="0" />
     <command_interface name="position" />
