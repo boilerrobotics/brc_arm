@@ -345,7 +345,7 @@
     type="revolute">
     <origin
       xyz="0.225 0 0"
-      rpy="-3.1416 -3.1241 3.1416" />
+      rpy="0 -3.1241 3.1416" />
     <parent
       link="wrist1_link" />
     <child
