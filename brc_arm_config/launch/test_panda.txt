@@ -1,0 +1,114 @@
+[INFO] [launch]: All log files can be found below /home/parallels/.ros/log/2024-02-12-23-54-04-111741-ubuntu-linux-22-04-desktop-8300
+[INFO] [launch]: Default logging verbosity is set to INFO
+Using load_yaml() directly is deprecated. Use xacro.load_yaml() instead.
+[INFO] [rviz2-1]: process started with pid [8315]
+[INFO] [ros2_control_node-2]: process started with pid [8317]
+[INFO] [spawner-3]: process started with pid [8319]
+[INFO] [spawner-4]: process started with pid [8321]
+[INFO] [servo_node_main-5]: process started with pid [8323]
+[INFO] [component_container_mt-6]: process started with pid [8331]
+[ros2_control_node-2] [INFO] [1707800044.841210672] [resource_manager]: Loading hardware 'PandaFakeSystem' 
+[ros2_control_node-2] [INFO] [1707800044.844805379] [resource_manager]: Initialize hardware 'PandaFakeSystem' 
+[ros2_control_node-2] [WARN] [1707800044.845109251] [mock_generic_system]: Parsing of optional initial interface values failed or uses a deprecated format. Add initial values for every state interface in the ros2_control.xacro. For example: 
+[ros2_control_node-2] <state_interface name="velocity"> 
+[ros2_control_node-2]   <param name="initial_value">0.0</param> 
+[ros2_control_node-2] </state_interface>
+[ros2_control_node-2] [INFO] [1707800044.845416707] [resource_manager]: Successful initialization of hardware 'PandaFakeSystem'
+[ros2_control_node-2] [INFO] [1707800044.845597021] [resource_manager]: Loading hardware 'PandaHandFakeSystem' 
+[ros2_control_node-2] [INFO] [1707800044.845767460] [resource_manager]: Initialize hardware 'PandaHandFakeSystem' 
+[ros2_control_node-2] [INFO] [1707800044.845937481] [resource_manager]: Successful initialization of hardware 'PandaHandFakeSystem'
+[ros2_control_node-2] [INFO] [1707800044.846112295] [resource_manager]: 'configure' hardware 'PandaFakeSystem' 
+[ros2_control_node-2] [INFO] [1707800044.846285984] [resource_manager]: Successful 'configure' of hardware 'PandaFakeSystem'
+[ros2_control_node-2] [INFO] [1707800044.846293652] [resource_manager]: 'activate' hardware 'PandaFakeSystem' 
+[ros2_control_node-2] [INFO] [1707800044.846296902] [resource_manager]: Successful 'activate' of hardware 'PandaFakeSystem'
+[ros2_control_node-2] [INFO] [1707800044.846299944] [resource_manager]: 'configure' hardware 'PandaHandFakeSystem' 
+[ros2_control_node-2] [INFO] [1707800044.846302819] [resource_manager]: Successful 'configure' of hardware 'PandaHandFakeSystem'
+[ros2_control_node-2] [INFO] [1707800044.846305945] [resource_manager]: 'activate' hardware 'PandaHandFakeSystem' 
+[ros2_control_node-2] [INFO] [1707800044.846308654] [resource_manager]: Successful 'activate' of hardware 'PandaHandFakeSystem'
+[rviz2-1] Warning: Ignoring XDG_SESSION_TYPE=wayland on Gnome. Use QT_QPA_PLATFORM=wayland to run on Wayland anyway.
+[ros2_control_node-2] [INFO] [1707800044.929460012] [controller_manager]: update rate is 100 Hz
+[ros2_control_node-2] [INFO] [1707800044.989167267] [controller_manager]: RT kernel is recommended for better performance
+[component_container_mt-6] [INFO] [1707800045.152321542] [moveit_servo_demo_container]: Load Library: /opt/ros/humble/lib/librobot_state_publisher_node.so
+[component_container_mt-6] [INFO] [1707800045.159776118] [moveit_servo_demo_container]: Found class: rclcpp_components::NodeFactoryTemplate<robot_state_publisher::RobotStatePublisher>
+[component_container_mt-6] [INFO] [1707800045.161890888] [moveit_servo_demo_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<robot_state_publisher::RobotStatePublisher>
+[component_container_mt-6] [INFO] [1707800045.245700670] [robot_state_publisher]: got segment panda_hand
+[component_container_mt-6] [INFO] [1707800045.253370190] [robot_state_publisher]: got segment panda_leftfinger
+[component_container_mt-6] [INFO] [1707800045.253812789] [robot_state_publisher]: got segment panda_link0
+[component_container_mt-6] [INFO] [1707800045.253964225] [robot_state_publisher]: got segment panda_link1
+[component_container_mt-6] [INFO] [1707800045.254091116] [robot_state_publisher]: got segment panda_link2
+[component_container_mt-6] [INFO] [1707800045.254207797] [robot_state_publisher]: got segment panda_link3
+[component_container_mt-6] [INFO] [1707800045.254325104] [robot_state_publisher]: got segment panda_link4
+[component_container_mt-6] [INFO] [1707800045.254678316] [robot_state_publisher]: got segment panda_link5
+[component_container_mt-6] [INFO] [1707800045.254829668] [robot_state_publisher]: got segment panda_link6
+[component_container_mt-6] [INFO] [1707800045.254948017] [robot_state_publisher]: got segment panda_link7
+[component_container_mt-6] [INFO] [1707800045.255062490] [robot_state_publisher]: got segment panda_link8
+[component_container_mt-6] [INFO] [1707800045.255173004] [robot_state_publisher]: got segment panda_rightfinger
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/robot_state_publisher' in container '/moveit_servo_demo_container'
+[component_container_mt-6] [INFO] [1707800045.290141259] [moveit_servo_demo_container]: Load Library: /opt/ros/humble/lib/libstatic_transform_broadcaster_node.so
+[component_container_mt-6] [INFO] [1707800045.291354081] [moveit_servo_demo_container]: Found class: rclcpp_components::NodeFactoryTemplate<tf2_ros::StaticTransformBroadcasterNode>
+[component_container_mt-6] [INFO] [1707800045.291368791] [moveit_servo_demo_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<tf2_ros::StaticTransformBroadcasterNode>
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/static_tf2_broadcaster' in container '/moveit_servo_demo_container'
+[component_container_mt-6] [INFO] [1707800045.358863032] [moveit_servo_demo_container]: Load Library: /home/parallels/brc_arm_ws/install/moveit_servo/lib/libservo_controller_input.so
+[component_container_mt-6] [INFO] [1707800045.362175455] [moveit_servo_demo_container]: Found class: rclcpp_components::NodeFactoryTemplate<moveit_servo::JoyToServoPub>
+[component_container_mt-6] [INFO] [1707800045.362209376] [moveit_servo_demo_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<moveit_servo::JoyToServoPub>
+[servo_node_main-5] [WARN] [1707800045.388729094] [moveit_servo.servo_node]: Intra-process communication is disabled, consider enabling it by adding: 
+[servo_node_main-5] extra_arguments=[{'use_intra_process_comms' : True}]
+[servo_node_main-5] to the Servo composable node in the launch file
+[servo_node_main-5] [INFO] [1707800045.411627225] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0.00826064 seconds
+[servo_node_main-5] [INFO] [1707800045.411678649] [moveit_robot_model.robot_model]: Loading robot model 'panda'...
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/controller_to_servo_node' in container '/moveit_servo_demo_container'
+[component_container_mt-6] [INFO] [1707800045.498818939] [moveit_servo_demo_container]: Load Library: /opt/ros/humble/lib/libjoy.so
+[component_container_mt-6] [INFO] [1707800045.562878574] [moveit_servo_demo_container]: Found class: rclcpp_components::NodeFactoryTemplate<joy::Joy>
+[component_container_mt-6] [INFO] [1707800045.563749727] [moveit_servo_demo_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<joy::Joy>
+[servo_node_main-5] [INFO] [1707800045.567906841] [moveit_ros.current_state_monitor]: Listening to joint states on topic '/joint_states'
+[servo_node_main-5] [INFO] [1707800045.582448448] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/attached_collision_object' for attached collision objects
+[servo_node_main-5] [INFO] [1707800045.582492078] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Starting planning scene monitor
+[servo_node_main-5] [INFO] [1707800045.590297366] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/planning_scene'
+[servo_node_main-5] [INFO] [1707800045.591016750] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Publishing maintained planning scene on '/servo_node/publish_planning_scene'
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/joy_node' in container '/moveit_servo_demo_container'
+[spawner-4] [INFO] [1707800045.668090797] [spawner_panda_arm_controller]: Waiting for '/controller_manager' node to exist
+[ros2_control_node-2] [INFO] [1707800045.829958334] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[component_container_mt-6] [INFO] [1707800045.843671376] [joy_node]: Opened joystick: Generic X-Box pad.  deadzone: 0.050000
+[rviz2-1] libGL error: pci id for fd 46: 1ab8:0010, driver (null)
+[ros2_control_node-2] [INFO] [1707800045.875046756] [controller_manager]: Loading controller 'panda_arm_controller'
+[spawner-3] [INFO] [1707800045.882080112] [spawner_joint_state_broadcaster]: Loaded joint_state_broadcaster
+[ros2_control_node-2] [WARN] [1707800045.951576400] [panda_arm_controller]: [Deprecated]: "allow_nonzero_velocity_at_trajectory_end" is set to true. The default behavior will change to false.
+[ros2_control_node-2] [INFO] [1707800045.959251630] [controller_manager]: Configuring controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1707800045.959388148] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[spawner-4] [INFO] [1707800045.960382149] [spawner_panda_arm_controller]: Loaded panda_arm_controller
+[ros2_control_node-2] [INFO] [1707800045.970694299] [controller_manager]: Configuring controller 'panda_arm_controller'
+[ros2_control_node-2] [INFO] [1707800045.972854033] [panda_arm_controller]: No specific joint names are used for command interfaces. Using 'joints' parameter.
+[ros2_control_node-2] [INFO] [1707800045.973380475] [panda_arm_controller]: Command interfaces are [position] and state interfaces are [position velocity].
+[ros2_control_node-2] [INFO] [1707800045.973709142] [panda_arm_controller]: Using 'splines' interpolation method.
+[ros2_control_node-2] [INFO] [1707800045.975670434] [panda_arm_controller]: Controller state will be published at 50.00 Hz.
+[ros2_control_node-2] [INFO] [1707800045.982975825] [panda_arm_controller]: Action status changes will be monitored at 20.00 Hz.
+[spawner-3] [INFO] [1707800046.009476418] [spawner_joint_state_broadcaster]: Configured and activated joint_state_broadcaster
+[rviz2-1] pci id for fd 47: 1ab8:0010, driver (null)
+[spawner-4] [INFO] [1707800046.029478149] [spawner_panda_arm_controller]: Configured and activated panda_arm_controller
+[rviz2-1] libGL error: pci id for fd 50: 1ab8:0010, driver (null)
+[rviz2-1] pci id for fd 51: 1ab8:0010, driver (null)
+[INFO] [spawner-3]: process has finished cleanly [pid 8319]
+[rviz2-1] [INFO] [1707800046.170308456] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-1] [INFO] [1707800046.170521275] [rviz2]: OpenGl version: 4 (GLSL 4)
+[rviz2-1] [INFO] [1707800046.192042951] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [spawner-4]: process has finished cleanly [pid 8321]
+[rviz2-1] [INFO] [1707800046.427888607] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0.00412774 seconds
+[rviz2-1] [INFO] [1707800046.427926612] [moveit_robot_model.robot_model]: Loading robot model 'panda'...
+[rviz2-1] [WARN] [1707800046.472529414] [moveit_ros.robot_model_loader]: No kinematics plugins defined. Fill and load kinematics.yaml!
+[rviz2-1] [INFO] [1707800046.537122696] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Starting planning scene monitor
+[rviz2-1] [INFO] [1707800046.564643516] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/servo_node/publish_planning_scene'
+[servo_node_main-5] [ERROR] [1707800048.520544139] [moveit_planning_scene.planning_scene]: Unknown frame: base_link
+^C[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[component_container_mt-6] [INFO] [1707800056.042994964] [rclcpp]: signal_handler(signum=2)
+[INFO] [ros2_control_node-2]: process has finished cleanly [pid 8317]
+[INFO] [servo_node_main-5]: process has finished cleanly [pid 8323]
+[INFO] [rviz2-1]: process has finished cleanly [pid 8315]
+[ros2_control_node-2] [INFO] [1707800056.043008174] [rclcpp]: signal_handler(signum=2)
+[servo_node_main-5] [INFO] [1707800056.045493256] [rclcpp]: signal_handler(signum=2)
+[servo_node_main-5] Warning: class_loader.ClassLoader: SEVERE WARNING!!! Attempting to unload library while objects created by this loader exist in the heap! You should delete your objects before attempting to unload the library or destroying the ClassLoader. The library will NOT be unloaded.
+[servo_node_main-5]          at line 127 in ./src/class_loader.cpp
+[servo_node_main-5] [INFO] [1707800056.087039183] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Stopped publishing maintained planning scene.
+[servo_node_main-5] [INFO] [1707800056.087531790] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Stopping planning scene monitor
+[rviz2-1] [INFO] [1707800056.054586554] [rclcpp]: signal_handler(signum=2)
+[rviz2-1] [INFO] [1707800056.064585766] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Stopping planning scene monitor
+[ERROR] [component_container_mt-6]: process has died [pid 8331, exit code -7, cmd '/opt/ros/humble/lib/rclcpp_components/component_container_mt --ros-args -r __node:=moveit_servo_demo_container -r __ns:=/'].

@@ -16,26 +16,26 @@ controller_manager:
 
 brc_arm_controller:
   ros__parameters:
+    command_interfaces:
+      - position
+      - velocity
+    state_interfaces:
+      - position
+      - velocity
     joints:
       - carriage_joint
       - midarm1_joint
       - midarm2_joint
       - wrist1_joint
       - wrist2_joint
+brc_arm_ee_controller:
+  ros__parameters:
     command_interfaces:
       - position
       - velocity
     state_interfaces:
       - position
       - velocity
-brc_arm_ee_controller:
-  ros__parameters:
     joints:
       - EEbase_joint
       - Rlink_joint
-    command_interfaces:
-      - position
-      - velocity
-    state_interfaces:
-      - position
-      - velocity

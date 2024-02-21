@@ -12,17 +12,20 @@ moveit_simple_controller_manager:
     - brc_arm_ee_controller
 
   brc_arm_controller:
+    action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
+    default: true
     joints:
       - carriage_joint
       - midarm1_joint
       - midarm2_joint
       - wrist1_joint
       - wrist2_joint
-    action_ns: follow_joint_trajectory
+
   brc_arm_ee_controller:
+    action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
+    default: true
     joints:
       - EEbase_joint
       - Rlink_joint
-    action_ns: follow_joint_trajectory

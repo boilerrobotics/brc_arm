@@ -1,0 +1,122 @@
+[INFO] [launch]: All log files can be found below /home/parallels/.ros/log/2024-02-16-11-19-05-336605-ubuntu-linux-22-04-desktop-258943
+[INFO] [launch]: Default logging verbosity is set to INFO
+Using load_yaml() directly is deprecated. Use xacro.load_yaml() instead.
+[INFO] [rviz2-1]: process started with pid [258958]
+[INFO] [ros2_control_node-2]: process started with pid [258960]
+[INFO] [spawner-3]: process started with pid [258962]
+[INFO] [spawner-4]: process started with pid [258964]
+[INFO] [servo_node_main-5]: process started with pid [258966]
+[INFO] [component_container_mt-6]: process started with pid [258968]
+[rviz2-1] Warning: Ignoring XDG_SESSION_TYPE=wayland on Gnome. Use QT_QPA_PLATFORM=wayland to run on Wayland anyway.
+[ros2_control_node-2] [INFO] [1708100345.922997045] [resource_manager]: Loading hardware 'BRCArm' 
+[ros2_control_node-2] [INFO] [1708100345.927743004] [resource_manager]: Initialize hardware 'BRCArm' 
+[ros2_control_node-2] [WARN] [1708100345.935619143] [mock_generic_system]: Parsing of optional initial interface values failed or uses a deprecated format. Add initial values for every state interface in the ros2_control.xacro. For example: 
+[ros2_control_node-2] <state_interface name="velocity"> 
+[ros2_control_node-2]   <param name="initial_value">0.0</param> 
+[ros2_control_node-2] </state_interface>
+[ros2_control_node-2] [INFO] [1708100345.935964265] [resource_manager]: Successful initialization of hardware 'BRCArm'
+[ros2_control_node-2] [INFO] [1708100345.936328637] [resource_manager]: 'configure' hardware 'BRCArm' 
+[ros2_control_node-2] [INFO] [1708100345.936541177] [resource_manager]: Successful 'configure' of hardware 'BRCArm'
+[ros2_control_node-2] [INFO] [1708100345.936794050] [resource_manager]: 'activate' hardware 'BRCArm' 
+[ros2_control_node-2] [INFO] [1708100345.937000590] [resource_manager]: Successful 'activate' of hardware 'BRCArm'
+[ros2_control_node-2] [INFO] [1708100345.969985385] [controller_manager]: update rate is 100 Hz
+[ros2_control_node-2] [INFO] [1708100345.981276911] [controller_manager]: RT kernel is recommended for better performance
+[servo_node_main-5] [WARN] [1708100346.052291165] [moveit_servo.servo_node]: Intra-process communication is disabled, consider enabling it by adding: 
+[servo_node_main-5] extra_arguments=[{'use_intra_process_comms' : True}]
+[servo_node_main-5] to the Servo composable node in the launch file
+[servo_node_main-5] [INFO] [1708100346.076489537] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0.0216116 seconds
+[servo_node_main-5] [INFO] [1708100346.076891450] [moveit_robot_model.robot_model]: Loading robot model 'brc_arm_description'...
+[servo_node_main-5] [WARN] [1708100346.124499908] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[servo_node_main-5] [INFO] [1708100346.202105937] [moveit_ros.current_state_monitor]: Listening to joint states on topic '/joint_states'
+[servo_node_main-5] [INFO] [1708100346.224917196] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/attached_collision_object' for attached collision objects
+[servo_node_main-5] [INFO] [1708100346.225328651] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Starting planning scene monitor
+[servo_node_main-5] [INFO] [1708100346.230703395] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/planning_scene'
+[servo_node_main-5] [INFO] [1708100346.231928468] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Publishing maintained planning scene on '/servo_node/publish_planning_scene'
+[component_container_mt-6] [INFO] [1708100346.241253511] [moveit_servo_demo_container]: Load Library: /opt/ros/humble/lib/librobot_state_publisher_node.so
+[component_container_mt-6] [INFO] [1708100346.247899495] [moveit_servo_demo_container]: Found class: rclcpp_components::NodeFactoryTemplate<robot_state_publisher::RobotStatePublisher>
+[component_container_mt-6] [INFO] [1708100346.249022860] [moveit_servo_demo_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<robot_state_publisher::RobotStatePublisher>
+[component_container_mt-6] [WARN] [1708100346.301077613] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[spawner-3] [INFO] [1708100346.301149487] [spawner_joint_state_broadcaster]: Waiting for '/controller_manager' node to exist
+[component_container_mt-6] [INFO] [1708100346.304382167] [robot_state_publisher]: got segment EEbase_link
+[component_container_mt-6] [INFO] [1708100346.304427792] [robot_state_publisher]: got segment Lfinger_link
+[component_container_mt-6] [INFO] [1708100346.304432417] [robot_state_publisher]: got segment Llink_link
+[component_container_mt-6] [INFO] [1708100346.304435667] [robot_state_publisher]: got segment Rfinger_link
+[component_container_mt-6] [INFO] [1708100346.304438875] [robot_state_publisher]: got segment Rlink_link
+[component_container_mt-6] [INFO] [1708100346.304442000] [robot_state_publisher]: got segment base_link
+[component_container_mt-6] [INFO] [1708100346.304444959] [robot_state_publisher]: got segment carriage_link
+[component_container_mt-6] [INFO] [1708100346.304448292] [robot_state_publisher]: got segment midarm1_link
+[component_container_mt-6] [INFO] [1708100346.304451292] [robot_state_publisher]: got segment midarm2_link
+[component_container_mt-6] [INFO] [1708100346.304454208] [robot_state_publisher]: got segment wrist1_link
+[component_container_mt-6] [INFO] [1708100346.304457042] [robot_state_publisher]: got segment wrist2_link
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/robot_state_publisher' in container '/moveit_servo_demo_container'
+[component_container_mt-6] [INFO] [1708100346.321715849] [moveit_servo_demo_container]: Load Library: /opt/ros/humble/lib/libstatic_transform_broadcaster_node.so
+[component_container_mt-6] [INFO] [1708100346.322400426] [moveit_servo_demo_container]: Found class: rclcpp_components::NodeFactoryTemplate<tf2_ros::StaticTransformBroadcasterNode>
+[component_container_mt-6] [INFO] [1708100346.322420593] [moveit_servo_demo_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<tf2_ros::StaticTransformBroadcasterNode>
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/static_tf2_broadcaster' in container '/moveit_servo_demo_container'
+[component_container_mt-6] [INFO] [1708100346.335127732] [moveit_servo_demo_container]: Load Library: /home/parallels/brc_arm_ws/install/moveit_servo/lib/libservo_controller_input.so
+[component_container_mt-6] [INFO] [1708100346.339616776] [moveit_servo_demo_container]: Found class: rclcpp_components::NodeFactoryTemplate<moveit_servo::JoyToServoPub>
+[component_container_mt-6] [INFO] [1708100346.340928806] [moveit_servo_demo_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<moveit_servo::JoyToServoPub>
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/controller_to_servo_node' in container '/moveit_servo_demo_container'
+[component_container_mt-6] [INFO] [1708100346.410571863] [moveit_servo_demo_container]: Load Library: /opt/ros/humble/lib/libjoy.so
+[spawner-4] [INFO] [1708100346.412777886] [spawner_brc_arm_controller]: Waiting for '/controller_manager' node to exist
+[component_container_mt-6] [INFO] [1708100346.435790851] [moveit_servo_demo_container]: Found class: rclcpp_components::NodeFactoryTemplate<joy::Joy>
+[component_container_mt-6] [INFO] [1708100346.435832184] [moveit_servo_demo_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<joy::Joy>
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/joy_node' in container '/moveit_servo_demo_container'
+[ros2_control_node-2] [INFO] [1708100346.525284401] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[spawner-3] [INFO] [1708100346.554453896] [spawner_joint_state_broadcaster]: Loaded joint_state_broadcaster
+[ros2_control_node-2] [INFO] [1708100346.555672677] [controller_manager]: Configuring controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1708100346.555751510] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[spawner-3] [INFO] [1708100346.584949837] [spawner_joint_state_broadcaster]: Configured and activated joint_state_broadcaster
+[rviz2-1] libGL error: pci id for fd 46: 1ab8:0010, driver (null)
+[component_container_mt-6] [INFO] [1708100346.613882584] [joy_node]: Opened joystick: Generic X-Box pad.  deadzone: 0.050000
+[ros2_control_node-2] [INFO] [1708100346.625887604] [controller_manager]: Loading controller 'brc_arm_controller'
+[ros2_control_node-2] [WARN] [1708100346.665144802] [brc_arm_controller]: [Deprecated]: "allow_nonzero_velocity_at_trajectory_end" is set to true. The default behavior will change to false.
+[spawner-4] [INFO] [1708100346.674572678] [spawner_brc_arm_controller]: Loaded brc_arm_controller
+[ros2_control_node-2] [INFO] [1708100346.682190778] [controller_manager]: Configuring controller 'brc_arm_controller'
+[ros2_control_node-2] [INFO] [1708100346.682470192] [brc_arm_controller]: No specific joint names are used for command interfaces. Using 'joints' parameter.
+[ros2_control_node-2] [INFO] [1708100346.682788773] [brc_arm_controller]: Command interfaces are [position velocity] and state interfaces are [position velocity].
+[ros2_control_node-2] [INFO] [1708100346.682809189] [brc_arm_controller]: Using 'splines' interpolation method.
+[ros2_control_node-2] [INFO] [1708100346.685806872] [brc_arm_controller]: Controller state will be published at 50.00 Hz.
+[ros2_control_node-2] [INFO] [1708100346.689361882] [brc_arm_controller]: Action status changes will be monitored at 20.00 Hz.
+[INFO] [spawner-3]: process has finished cleanly [pid 258962]
+[spawner-4] [INFO] [1708100346.723171378] [spawner_brc_arm_controller]: Configured and activated brc_arm_controller
+[rviz2-1] pci id for fd 47: 1ab8:0010, driver (null)
+[rviz2-1] libGL error: pci id for fd 50: 1ab8:0010, driver (null)
+[rviz2-1] pci id for fd 51: 1ab8:0010, driver (null)
+[INFO] [spawner-4]: process has finished cleanly [pid 258964]
+[rviz2-1] [INFO] [1708100346.919775574] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-1] [INFO] [1708100346.920397444] [rviz2]: OpenGl version: 4 (GLSL 4)
+[rviz2-1] [INFO] [1708100346.942321627] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-1] Warning: class_loader.impl: SEVERE WARNING!!! A namespace collision has occurred with plugin factory for class rviz_default_plugins::displays::InteractiveMarkerDisplay. New factory will OVERWRITE existing one. This situation occurs when libraries containing plugins are directly linked against an executable (the one running right now generating this message). Please separate plugins out into their own library or just don't link against the library and use either class_loader::ClassLoader/MultiLibraryClassLoader to open.
+[rviz2-1]          at line 253 in /opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp
+[rviz2-1] [ERROR] [1708100350.157810694] [moveit_ros_visualization.motion_planning_frame]: Action server: /recognize_objects not available
+[rviz2-1] [INFO] [1708100350.183564759] [moveit_ros_visualization.motion_planning_frame]: MoveGroup namespace changed: / -> . Reloading params.
+[rviz2-1] [INFO] [1708100350.269911665] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0.00474737 seconds
+[rviz2-1] [INFO] [1708100350.270879615] [moveit_robot_model.robot_model]: Loading robot model 'brc_arm_description'...
+[rviz2-1] [WARN] [1708100350.317628828] [moveit_ros.robot_model_loader]: No kinematics plugins defined. Fill and load kinematics.yaml!
+[rviz2-1] [INFO] [1708100350.362704265] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Starting planning scene monitor
+[rviz2-1] [INFO] [1708100350.364263626] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/monitored_planning_scene'
+[rviz2-1] [INFO] [1708100350.435193168] [interactive_marker_display_187651008316208]: Connected on namespace: /rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic
+[rviz2-1] [WARN] [1708100350.444551378] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[rviz2-1] [INFO] [1708100350.447639976] [moveit_ros_robot_interaction.robot_interaction]: No active joints or end effectors found for group 'brc_arm'. Make sure that kinematics.yaml is loaded in this node's namespace.
+[rviz2-1] [INFO] [1708100350.466426560] [interactive_marker_display_187651008316208]: Sending request for interactive markers
+[rviz2-1] [INFO] [1708100350.499489269] [interactive_marker_display_187651008316208]: Service response received for initialization
+[rviz2-1] [INFO] [1708100350.537474935] [moveit_ros_visualization.motion_planning_frame]: group brc_arm
+[rviz2-1] [INFO] [1708100350.537512476] [moveit_ros_visualization.motion_planning_frame]: Constructing new MoveGroup connection for group 'brc_arm' in namespace ''
+[servo_node_main-5] [WARN] [1708100355.454334569] [moveit_servo.servo_calcs]: servo_node midarm2_joint close to a position limit. Halting.
+[servo_node_main-5] [WARN] [1708100358.583364210] [moveit_servo.servo_calcs]: servo_node carriage_joint close to a position limit. Halting.
+[servo_node_main-5] [WARN] [1708100361.608426404] [moveit_servo.servo_calcs]: servo_node midarm1_joint close to a position limit. Halting.
+[servo_node_main-5] [WARN] [1708100364.634494094] [moveit_servo.servo_calcs]: servo_node midarm1_joint close to a position limit. Halting.
+[servo_node_main-5] [WARN] [1708100365.893031772] [moveit_servo.servo_calcs]: run_duration: 0.0382154 (0.034)
+[servo_node_main-5] [WARN] [1708100367.660578374] [moveit_servo.servo_calcs]: servo_node midarm1_joint close to a position limit. Halting.
+[servo_node_main-5] [WARN] [1708100370.686570037] [moveit_servo.servo_calcs]: servo_node midarm1_joint close to a position limit. Halting.
+[servo_node_main-5] [WARN] [1708100372.567983080] [moveit_servo.servo_calcs]: run_duration: 0.0411969 (0.034)
+[component_container_mt-6] [INFO] [1708100374.664365618] [joy_node]: Opened joystick: Generic X-Box pad.  deadzone: 0.050000
+[rviz2-1] [INFO] [1708100410.597168426] [move_group_interface]: Ready to take commands for planning group brc_arm.
+[servo_node_main-5] [WARN] [1708100485.437323927] [moveit_servo.servo_calcs]: servo_node midarm1_joint close to a position limit. Halting.
+[servo_node_main-5] [WARN] [1708100489.346542341] [moveit_servo.servo_calcs]: servo_node midarm1_joint close to a position limit. Halting.
+[servo_node_main-5] [WARN] [1708100492.679168673] [moveit_servo.servo_calcs]: servo_node midarm1_joint close to a position limit. Halting.
+[servo_node_main-5] [WARN] [1708100495.705191817] [moveit_servo.servo_calcs]: servo_node carriage_joint, midarm1_joint close to a position limit. Halting.
+[servo_node_main-5] [WARN] [1708100497.403736197] [moveit_servo.servo_calcs]: Ignoring joint carriage_link
+[servo_node_main-5] [WARN] [1708100500.426774604] [moveit_servo.servo_calcs]: Ignoring joint carriage_link
+[servo_node_main-5] [WARN] [1708100876.403909175] [moveit_servo.servo_calcs]: servo_node midarm1_joint close to a position limit. Halting.
